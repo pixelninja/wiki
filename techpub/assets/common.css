@@ -92,6 +92,9 @@
 	}
 	#document > * {
 		-webkit-box-shadow: 0 0 15px hsla(0, 0%, 0%, 0.2);
+		margin: auto;
+		padding: 60px;
+		width: 840px;
 	}
 	
 	@media print {
@@ -101,16 +104,43 @@
 		}
 		#document > * {
 			-webkit-box-shadow: none;
+			margin: 0;
+			padding: 20px;
+			width: auto;
 		}
 	}
 	
+/* @end */
+
+/* @group Cover */
+	
 	#cover {
 		background: #f8992d;
+		color: #ffffff;
 		display: none;
 		height: 100%;
-		margin: auto;
-		padding: 60px;
-		width: 840px;
+		padding-top: 250px;
+	}
+	#cover *:first-child {
+		margin-top: 0;
+	}
+	#cover *:last-child {
+		margin-bottom: 0;
+	}
+	
+	#cover h1 {
+		font-size: 48px;
+		font-weight: bold;
+		line-height: 48px;
+		margin: 20px 0;
+		text-transform: uppercase;
+	}
+	#cover p {
+		font-size: 16px;
+		text-transform: uppercase;
+	}
+	#cover p sub {
+		font-size: 12px;
 	}
 	
 /* @end */
@@ -119,10 +149,8 @@
 	
 	#content {
 		background: #ffffff;
-		margin: auto;
 		min-height: 100%;
-		padding: 60px;
-		width: 840px;
+		page-break-before: always;
 	}
 	#content:after {
 		background: -webkit-gradient(
@@ -144,8 +172,8 @@
 		background: -webkit-gradient(
 			linear, left top, left bottom,
 			color-stop(1.0, hsla(0, 0%, 100%, 0)),
-			color-stop(0.5, hsla(0, 0%, 100%, 0.3)),
-			color-stop(0.0, hsla(0, 0%, 100%, 1))
+			color-stop(0.5, hsla(0, 0%, 100%, 0.04)),
+			color-stop(0.0, hsla(0, 0%, 100%, 0.1))
 		);
 		content: '\00a0';
 		display: block;
@@ -164,11 +192,6 @@
 	}
 	
 	@media print {
-		#content {
-			margin: 0;
-			padding: 20px;
-			width: auto;
-		}
 		#content:after,
 		#content:before {
 			display: none;

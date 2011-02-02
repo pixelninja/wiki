@@ -27,5 +27,6 @@ GENTICS.Aloha.settings = {
 };
 
 $(document).ready(function() {
+	$('#cover').aloha();
 	$('#content').aloha();
 }); 

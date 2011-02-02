@@ -22,10 +22,11 @@
 		
 		<div id="document">
 			<div id="cover">
-				<h2>Gaia Retreat from Drupal to Symphony</h2>
+            	<h1>Gaia Retreat, from<br /> Drupal to Symphony</h1>
+            	<p><sub>Date.</sub><br /> February 2011</p>
 			</div>
             <div id="content">
-            	<h1>Gaia Retreat, from<br /> Drupal to Symphony</h1>
+            	<!--<h1>Gaia Retreat, from<br /> Drupal to Symphony</h1>-->
 				<h2>Page layout</h2>
 				<p>The Gaia Retreat website consists of a fairly simple three column layout:</p>
 				<p>[Content layout diagram]</p>
