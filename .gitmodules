@@ -1,0 +1,3 @@
+[submodule "affliction"]
+	path = affliction
+	url = git@github.com:rowan-lewis/affliction.git

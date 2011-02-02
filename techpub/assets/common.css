@@ -1,0 +1,383 @@
+/* @group Reset */
+	
+	* {
+		background: transparent;
+		border: none;
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		color: inherit;
+		font-family: inherit;
+		font-size: 100%;
+		font-style: inherit;
+		font-weight: inherit;
+		line-height: inherit;
+		margin: 0;
+		outline: none;
+		padding: 0;
+		vertical-align: bottom;
+	}
+	html,
+	body {
+		height: 100%;
+	}
+	body {
+		background: #dddddd;
+		counter-reset: section;
+		font-family: 'gotham';
+		font-size: 13px;
+		line-height: 20px;
+		overflow: hidden;
+	}
+	
+	@media print {
+		body {
+			background: transparent;
+		}
+	}
+	
+/* @end */
+
+/* @group Aloha */
+	
+	.GENTICS_shadow,
+	.GENTICS_floatingmenu,
+	.GENTICS_shadow *,
+	.GENTICS_floatingmenu * {
+		box-sizing: content-box;
+		-moz-box-sizing: content-box;
+		-webkit-box-sizing: content-box;
+	}
+	
+/* @end */
+
+/* @group Scrollbar */
+	
+	::-webkit-scrollbar {
+		height: 10px;
+		width: 10px;
+	}
+	::-webkit-scrollbar-button:vertical:start:increment,
+	::-webkit-scrollbar-button:vertical:end:decrement {
+		display: none;
+	}
+	::-webkit-scrollbar-button:start:decrement,
+	::-webkit-scrollbar-button:end:increment {
+		display: block;
+		height: 20px;
+	}
+	::-webkit-scrollbar-track-piece {
+		background: hsla(0, 0%, 0%, 0.02);
+		border-radius: 10px;
+	}
+	::-webkit-scrollbar-thumb:vertical {
+		background-color: hsla(0, 0%, 0%, 0.05);
+		border-radius: 10px;
+		height: 50px;
+	}
+	::-webkit-scrollbar-thumb:vertical:hover {
+		background-color: hsla(0, 0%, 0%, 0.1);
+	}
+	
+/* @end */
+
+/* @group Document */
+	
+	#document {
+		border-left: 20px solid transparent;
+		border-right: 20px solid transparent;
+		height: 100%;
+		overflow: hidden;
+		overflow-y: auto;
+	}
+	#document > * {
+		-webkit-box-shadow: 0 0 15px hsla(0, 0%, 0%, 0.2);
+	}
+	
+	@media print {
+		#document {
+			border: none;
+			height: auto;
+		}
+		#document > * {
+			-webkit-box-shadow: none;
+		}
+	}
+	
+	#cover {
+		background: #f8992d;
+		display: none;
+		height: 100%;
+		margin: auto;
+		padding: 60px;
+		width: 840px;
+	}
+	
+/* @end */
+
+/* @group Content */
+	
+	#content {
+		background: #ffffff;
+		margin: auto;
+		min-height: 100%;
+		padding: 60px;
+		width: 840px;
+	}
+	#content:after {
+		background: -webkit-gradient(
+			linear, left top, left bottom,
+			color-stop(1.0, hsla(0, 0%, 0%, 0.15)),
+			color-stop(0.5, hsla(0, 0%, 0%, 0.04)),
+			color-stop(0.0, hsla(0, 0%, 0%, 0))
+		);
+		bottom: 0;
+		content: '\00a0';
+		display: block;
+		height: 60px;
+		margin: 0 0 0 -60px;
+		position: fixed;
+		width: 840px;
+		z-index: 1;
+	}
+	#content:before {
+		background: -webkit-gradient(
+			linear, left top, left bottom,
+			color-stop(1.0, hsla(0, 0%, 100%, 0)),
+			color-stop(0.5, hsla(0, 0%, 100%, 0.3)),
+			color-stop(0.0, hsla(0, 0%, 100%, 1))
+		);
+		content: '\00a0';
+		display: block;
+		height: 60px;
+		margin: 0 0 0 -60px;
+		position: fixed;
+		top: 0;
+		width: 840px;
+		z-index: 1;
+	}
+	#content *:first-child {
+		margin-top: 0;
+	}
+	#content *:last-child {
+		margin-bottom: 0;
+	}
+	
+	@media print {
+		#content {
+			margin: 0;
+			padding: 20px;
+			width: auto;
+		}
+		#content:after,
+		#content:before {
+			display: none;
+		}
+	}
+	
+	/* @group Inline */
+		
+		#content i,
+		#content em {
+			font-style: italic;
+		}
+		#content b,
+		#content strong {
+			font-weight: bold;
+		}
+		
+		#content sub {
+			vertical-align: sub;
+		}
+		#content sup {
+			vertical-align: super;
+		}
+		
+	/* @end */
+	
+	/* @group Headers */
+		
+		#content h1 {
+			font-size: 38px;
+			font-weight: bold;
+			line-height: 40px;
+			text-transform: uppercase;
+		}
+		#content h2 {
+			counter-increment: section;
+			counter-reset: subsection;
+			font-size: 20px;
+			font-weight: bold;
+			line-height: 22px;
+			margin: 30px 0 15px 0;
+			page-break-before: always;
+			position: relative;
+			text-transform: uppercase;
+		}
+		#content h2:first-child {
+			page-break-before: auto;
+		}
+		#content h3 {
+			counter-increment: subsection;
+			counter-reset: subsubsection;
+			font-size: 14px;
+			margin: 30px 0 10px 0;
+			text-transform: uppercase;
+		}
+		#content h3:before {
+			content: counter(section) '.' counter(subsection) '. ';
+		}
+		#content h2 + h3 {
+			margin-top: 15px;
+		}
+		#content h4 {
+			counter-increment: subsubsection;
+			font-weight: bold;
+			margin: 20px 0 5px 0;
+		}
+		#content h4:before {
+			content: counter(section) '.' counter(subsection) '.' counter(subsubsection) '. ';
+		}
+		
+	/* @end */
+	
+	/* @group Images */
+		
+		#content img {
+			display: block;
+			margin: 0 auto;
+			padding: 10px 0;
+		}
+		
+	/* @end */
+	
+	/* @group Tables */
+		
+		#content table {
+			border-collapse: collapse;
+			border-spacing: 0;
+			font-size: 12px;
+			margin: 20px 0;
+			width: 100%;
+		}
+		@media print {
+			#content table {
+				page-break-inside: avoid;
+			}
+		}
+		#content table caption {
+			font-size: 14px;
+			margin: 0 0 15px 0;
+			text-transform: uppercase;
+		}
+		#content .GENTICS_Aloha_Table_wrapper caption {
+			bottom: -10px;
+			left: 10px;
+			position: relative;
+		}
+		#content table td {
+			padding: 4px 8px;
+			vertical-align: top;
+		}
+		#content table tr:nth-child(2n+1) td,
+		#content .GENTICS_Aloha_Table_wrapper tr:nth-child(2n) td {
+			background: #feeac7;
+		}
+		#content .GENTICS_Aloha_Table_wrapper tr:nth-child(2n+1) td {
+			background: transparent;
+		}
+		#content table tr:first-child td,
+		#content .GENTICS_Aloha_Table_wrapper tr:first-child + tr td {
+			background: #f8992d;
+			color: #ffffff;
+			font-weight: bold;
+			text-transform: uppercase;
+		}
+		
+		#content .GENTICS_Aloha_Table_wrapper {
+			margin: 0 0 20px -10px;
+		}
+		#content .GENTICS_Aloha_Table_wrapper + .GENTICS_Aloha_Table_wrapper {
+			margin-top: -10px;
+		}
+		#content tr.GENTICS_Aloha_Table_selectColumn td,
+		#content td.GENTICS_Aloha_Table_selectRow {
+			visibility: visible;
+		}
+		#content tr.GENTICS_Aloha_Table_selectColumn:first-child td {
+			background: #f6f6f6;
+			height: 10px;
+			line-height: 10px;
+			padding: 0;
+		}
+		#content tr.GENTICS_Aloha_Table_selectColumn:first-child td:hover {
+			background: #e6e6e6;
+		}
+		#content tr.GENTICS_Aloha_Table_selectColumn .GENTICS_WAI_RED {
+			display: none;
+		}
+		#content tr:first-child + tr td.GENTICS_Aloha_Table_selectRow,
+		#content tr:nth-child(1n) td.GENTICS_Aloha_Table_selectRow {
+			background: #f6f6f6;
+			padding: 0;
+			width: 10px;
+		}
+		#content tr:first-child + tr td.GENTICS_Aloha_Table_selectRow:hover,
+		#content tr:nth-child(1n) td.GENTICS_Aloha_Table_selectRow:hover {
+			background: #e6e6e6;
+		}
+		
+	/* @end */
+	
+	/* @group Lists */
+		
+		#content ol,
+		#content ul {
+			list-style-position: outside;
+			margin: 10px 0 10px 2.5em;
+		}
+		#content ol li,
+		#content ul li {
+			clear: both;
+			margin: 0 0 0 0;
+		}
+		#content ol ol,
+		#content ol ul,
+		#content ul ol,
+		#content ul ul {
+			color: #555555;
+			list-style: none;
+			margin: 0;
+		}
+		#content ol ol li,
+		#content ol ul li,
+		#content ul ol li,
+		#content ul ul li {
+			margin: 5px 0;
+		}
+		#content ol strong,
+		#content ul strong {
+			color: #555555;
+			float: right;
+			font-weight: normal;
+			width: 70%;
+		}
+		
+	/* @end */
+	
+	/* @group Paragraphs */
+		
+		#content pre {
+			background: #f8f8f8;
+			font-family: 'monaco';
+			font-size: 11px;
+			margin: 20px 0;
+			padding: 4px 8px;
+		}
+		#content p {
+			margin: 10px 0;
+		}
+		
+	/* @end */
+	
+/* @end */
