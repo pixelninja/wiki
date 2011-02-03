@@ -1,13 +1,13 @@
 <?php
 /*----------------------------------------------------------------------------*/
 	
-	namespace Apps\TechPub\Views;
+	namespace Apps\Wiki\Views;
 	
-	class AJAX_Open extends \Libs\View {
+	class AJAX_Preview extends \Libs\View {
 		public function execute() {
 			$session = \Libs\Session::current();
 			$session->headers()->{'content-type'} = 'application/xml';
-			$session->actors()->{'open'} = 'Actors\Open';
+			$session->actors()->{'preview'} = 'Actors\Preview';
 			
 			parent::execute();
 		}

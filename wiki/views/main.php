@@ -1,7 +1,7 @@
 <?php
 /*----------------------------------------------------------------------------*/
 	
-	namespace Apps\TechPub\Views;
+	namespace Apps\Wiki\Views;
 	
 	class Main extends \Libs\View {
 		public function resolveConstants() {

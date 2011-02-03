@@ -1,7 +1,7 @@
 <?php
 /*---------------------------------------------------------------------------*/
 	
-	namespace Apps\TechPub\Libs;
+	namespace Apps\Wiki\Libs;
 	
 	class HTML {
 		public function format($source, $options) {

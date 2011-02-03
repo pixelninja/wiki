@@ -1,7 +1,7 @@
 <?php
 /*----------------------------------------------------------------------------*/
 	
-	namespace Apps\TechPub\Actors;
+	namespace Apps\Wiki\Actors;
 	
 	class Preview extends \Libs\Actor {
 		public function execute(\Libs\DOM\Element $element) {
@@ -12,7 +12,7 @@
 			
 			if ($raw == '') return;
 			
-			$html = new \Apps\TechPub\Libs\HTML();
+			$html = new \Apps\Wiki\Libs\HTML();
 			$tidy = $html->format($raw, array(
 				'pretty_acronyms'			=> true,
 				'pretty_ampersands'			=> true,

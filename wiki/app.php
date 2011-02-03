@@ -1,6 +1,6 @@
 <?php
 	
-	namespace Apps\TechPub;
+	namespace Apps\Wiki;
 	
 	class App extends \Libs\App {
 		

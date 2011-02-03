@@ -1,7 +1,7 @@
 <?php
 /*----------------------------------------------------------------------------*/
 	
-	namespace Apps\TechPub\Actors;
+	namespace Apps\Wiki\Actors;
 	
 	class Format extends \Libs\Actor {
 		public function execute(\Libs\DOM\Element $element) {
@@ -13,7 +13,7 @@
 			// Find current document name:
 			$path = $parameters->{'current-path'};
 			$path = strtolower(trim(preg_replace('%\W+%', '-', $path), '-'));
-			$file = $session->constants()->{'base-dir'} . '/techpub/docs/' . $path . '.html';
+			$file = $session->constants()->{'app-dir'} . '/docs/' . $path . '.html';
 			
 			// Redirect to serialised document:
 			if ($path != (string)$parameters->{'current-path'}) {
@@ -23,7 +23,7 @@
 			// No path? Use index:
 			if ($path == '') {
 				$path = 'index';
-				$file = $session->constants()->{'base-dir'} . '/techpub/docs/index.html';
+				$file = $session->constants()->{'app-dir'} . '/docs/index.html';
 			}
 			
 			// Create a new empty document?
@@ -40,7 +40,7 @@
 			
 			if ($raw == '') return;
 			
-			$html = new \Apps\TechPub\Libs\HTML();
+			$html = new \Apps\Wiki\Libs\HTML();
 			$tidy = $html->format($raw, array(
 				'pretty_acronyms'			=> true,
 				'pretty_ampersands'			=> true,

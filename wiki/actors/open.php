@@ -1,19 +1,17 @@
 <?php
 /*----------------------------------------------------------------------------*/
 	
-	namespace Apps\TechPub\Actors;
+	namespace Apps\Wiki\Actors;
 	
-	class Save extends \Libs\Actor {
+	class Open extends \Libs\Actor {
 		public function execute(\Libs\DOM\Element $element) {
 			parent::execute($element);
 			
+			$constants = \Libs\Session::current()->constants();
 			$parameters = \Libs\Session::current()->parameters();
-			$file = $parameters->{'file'};
-			$raw = $parameters->{'raw'};
 			
-			if ($raw == '') return;
-			
-			file_put_contents(BASE_DIR . '/techpub/docs/' . $file . '.html', $raw);
+			$raw = file_get_contents($constants->{'app-dir'} . '/docs/' . $parameters->{'file'} . '.html');
+			$element->nodeValue = htmlentities($raw);
 		}
 	}
 	

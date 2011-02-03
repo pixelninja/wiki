@@ -19,7 +19,7 @@
 	
 	// Register the rdrkt App:
 	$session->registerApp(
-		Apps\TechPub\App::instance()
+		Apps\Wiki\App::instance()
 	);
 	
 	// Begin:
