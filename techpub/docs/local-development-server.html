@@ -1,0 +1,176 @@
+<h1>Local development server</h1>
+
+<h2>Configuration</h2>
+
+All Apache configuration can be found in the <code>/etc/apache</code> directory on a development machine, this directory contains a git repository with the following file structure:
+
+<table>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>assets/</code></td>
+<td>Resources for the running web server, including autoindex script</td>
+</tr>
+<tr>
+<td><code>httpd.conf</code></td>
+<td>The main Apache configuration - don't edit yourself</td>
+</tr>
+<tr>
+<td><code>mods-available/</code></td>
+<td>Extra Apache modules that can be loaded</td>
+</tr>
+<tr>
+<td><code>mods-enabled/</code></td>
+<td>Apache modules to be loaded - files are symlinks to mods-available</td>
+</tr>
+<tr>
+<td><code>profiles-available/</code></td>
+<td>Everyones personal Apache configuration</td>
+</tr>
+<tr>
+<td><code>profiles-enabled/</code></td>
+<td>Personal configuration to be loaded - files are symlinks to profiles-available</td>
+</table>
+
+
+<h3>Personal profiles</h3>
+
+Inside of the <code>profiles-available</code> directory you should find a file named <code><em>yourname</em>.conf</code>, this file contains the necessary information for Apache to run on your machine. It looks like this template:
+
+<pre>#------------------------------------------------------------------------------
+	
+	User			$1
+	Group			staff
+	
+#------------------------------------------------------------------------------
+#	Virtual Hosts
+#------------------------------------------------------------------------------
+	
+	&lt;VirtualHost *:80&gt;
+		ServerName	$2.sites.randb.com.au
+		DocumentRoot	/Users/$1/Sites
+	&lt;/VirtualHost&gt;
+	
+#------------------------------------------------------------------------------</pre>
+
+<ol>
+<li>Your username - can be found by running <code>id -un</code> from the terminal</li>
+<li>Your first name - check with someone to make sure DNS is setup</li>
+</ol>
+
+If you need to customize any part of your configuration, other than loading new Apache modules, you should do it in this file. Don't forget to commit and push so your configuration can be updated or restored from the repository.
+
+If you need an extra virtual host added to your configuration, just copy the first virtual host in your configuration and change the <code>ServerName</code> and the <code>DocumentRoot</code>. Of course you should also make sure the domain name is an alias (CNAME) of your machine and that it exists on our public DNS server if you want it to be seen externally.
+
+<h3>Auto index, robots.txt and passwords</h3>
+
+The Apache repository also contains a custom auto index script, essentially Apache tries to load any <code>index.html</code> or <code>index.php</code> files in the current directory, failing that it instead loads <code>http://<em>yourdomain</em>/.autoindex/index.php</code>.
+
+The <code>/.autoindex</code> directory isn't physically inside of your Sites folder, instead it is in <code>/private/etc/apache2/assets</code>.
+
+Also setup as an alias is a simple <code>robots.txt</code> file which tells Google to never index your domain, if by accident it manages to do so.
+
+The entire server is password protected when accessed remotely, you will find the passwords file at <code>/private/etc/apache2/assets/passwords</code>. You can add a new username and password combination to this file using the <code>htpasswd</code> utility.
+
+<h3>Loading new Apache modules</h3>
+
+To load a new Apache module, change into the <code>/private/etc/apache2/mods-enabled</code> directory and run the following command to make a symlink of the module configuration:
+
+<pre>ln -s /private/etc/apache2/mods-available/<em>modulename</em>.load</pre>
+
+If it has one, make sure to symlink the <code><em>modulename</em>.conf</code> file also.
+
+<h3>Loading new PHP extensions</h3>
+
+If you've installed a new PHP extension using <code>pecl</code> or some other utility, you will probably get a message like this after installation:
+
+<pre>Build process completed successfully
+Installing '/usr/local/Cellar/php/5.3.4/lib/php/extensions/no-debug-non-zts-20090626/apc.so'</pre>
+
+While it might appear that installation has been completed, you'll still need to tell PHP where to load this extension from. To do that, edit the <code>/usr/local/Cellar/php/5.3.4/etc/php.ini</code> file and add this line at the relevant place:
+
+<pre>extension = /usr/local/Cellar/php/5.3.4/lib/php/extensions/no-debug-non-zts-20090626/apc.so</pre>
+
+Depending on the extension installed, the word <code>extension</code> may need to be substituted with <code>zend_extension</code>, you'll know it when this error happens after running <code>php -v</code>
+
+<pre>PHP Warning:  Xdebug MUST be loaded as a Zend extension in Unknown on line 0</pre>
+
+<h2>Tips and tricks</h2>
+
+<h3>Update your copy of git</h3>
+
+Both git and PHP where installed using the homebrew package manager for OS X, it's ridiculously easy to use.
+
+<ol>
+<li>Update homebrew: <code>brew update</code></li>
+<li>Install the latest version of git: <code>brew install git</code></li>
+</ol>
+
+And you're done!
+
+<h3>Doing more with homebrew</h3>
+
+Homebrew also contains a lot more software than just git, you will also find basically every command line utility available on a Linux system, for a complete list just run <code>brew search</code>.
+
+I've also used homebrew to install the following extra packages on each development machine:
+
+<table>
+</tr>
+<tr>
+<th>Package</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>fish</code></td>
+<td>A user friendly and colourful alternative to the default OS X terminal shell.</td>
+</tr>
+<tr>
+<td><code>htop</code></td>
+<td>A user friendly and colourful alternative to <code>top</code>.</td>
+</table>
+
+To update all software installed using homebrew just run do the following:
+
+<ol>
+<li>Update homebrew: <code>brew update</code></li>
+<li>Install the latest version of anything outdated: <code>brew install (brew outdated)</code></li>
+</ol>
+
+<h3>Other useful commands</h3>
+
+<table>
+</tr>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><code>sudo apachectl stop</code></td>
+<td>Stop the web server</td>
+</tr>
+<tr>
+<td><code>sudo apachectl start</code></td>
+<td>Start the web server</td>
+</tr>
+<tr>
+<td><code>sudo apachectl restart</code></td>
+<td>Stop <em>and</em> restart the web server</td>
+</tr>
+<tr>
+<td><code>apachectl conftest</code></td>
+<td>Verify that your Apache configuration is OK</td>
+</tr>
+<tr>
+<td><code>php -v</code></td>
+<td>Verify that your PHP configuration is OK (Look for errors before the version is printed)</td>
+</tr>
+<tr>
+<td><code>sudo chown -R <em>username</em>:staff .</code></td>
+<td>Fix permissions of your <code>Sites</code> or <code>/private/etc/apache2</code> folder</td>
+</tr>
+<tr>
+<td><code>dscacheutil -flushcache</code></td>
+<td>Flush your DNS cache</td>
+</table>

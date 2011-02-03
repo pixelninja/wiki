@@ -5,8 +5,9 @@
 	
 	class Main extends \Libs\View {
 		public function resolveConstants() {
-			$constants = \Libs\Session::current()->constants();
-			$constants->{'aloha-url'} = $constants->{'app-url'} . '/assets/aloha';
+			$actors = \Libs\Session::current()->actors();
+			
+			$actors->{'format'} = 'Actors\Format';
 		}
 		
 		public function isIndex() {
