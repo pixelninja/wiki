@@ -128,6 +128,6 @@ $(document).bind('ready', function() {
 		.live('change keypress keyup', function() {
 			var lines = this.value.split("\n").length;
 			
-			$(this).css('height', ((lines * 20) + 230) + 'px');
+			$(this).css('height', ((lines * 18) + 650) + 'px');
 		});
 });

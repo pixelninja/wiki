@@ -49,19 +49,29 @@
 		box-shadow: 0 0 15px hsla(0, 0%, 0%, 0.2);
 		-moz-box-shadow: 0 0 15px hsla(0, 0%, 0%, 0.2);
 		-webkit-box-shadow: 0 0 15px hsla(0, 0%, 0%, 0.2);
-		padding: 130px 60px 60px 60px;
+		padding: 120px 60px 60px 60px;
 		width: 840px;
 	}
 	#document > nav {
 		background: hsla(0, 0%, 15%, 0.9);
+		background: -moz-linear-gradient(
+			top, hsla(0, 0%, 20%, 0.9), hsla(0, 0%, 15%, 0.9)
+		);
+		background: -webkit-gradient(
+			linear, left top, left bottom,
+			color-stop(0, hsla(0, 0%, 20%, 0.9)),
+			color-stop(1, hsla(0, 0%, 15%, 0.9))
+		);
 		color: #ffffff;
-		height: 70px;
+		font-size: 12px;
+		height: 60px;
 		line-height: 25px;
-		margin: 0 auto -70px auto;
-		padding: 20px 60px;
+		margin: 0 auto;
+		padding: 15px 60px;
 		position: fixed;
 		top: 0;
 		width: 840px;
+		z-index: 1;
 	}
 	#document > nav ul {
 		list-style: none;
@@ -76,10 +86,10 @@
 			color-stop(0, hsla(0, 0%, 0%, 0)),
 			color-stop(1, hsla(0, 0%, 0%, 0.2))
 		);
-		border-radius: 5px;
-		-moz-border-radius: 5px;
-		-o-border-radius: 5px;
-		-webkit-border-radius: 5px;
+		border-radius: 25px;
+		-moz-border-radius: 25px;
+		-o-border-radius: 25px;
+		-webkit-border-radius: 25px;
 		box-shadow: 0 -1px 0 hsla(0, 0%, 100%, 0.2) inset;
 		-moz-box-shadow: 0 -1px 0 hsla(0, 0%, 100%, 0.2) inset;
 		-webkit-box-shadow: 0 -1px 0 hsla(0, 0%, 100%, 0.2) inset;
@@ -296,6 +306,7 @@
 			border-top: 3px solid hsla(0, 0%, 0%, 0.1);
 			font-family: 'monaco';
 			font-size: 12px;
+			line-height: 18px;
 			margin: 20px 0;
 			padding: 4px 8px;
 		}
@@ -315,6 +326,9 @@
 	#edit {
 		cursor: text;
 		display: block;
+		font-family: 'monaco';
+		font-size: 12px;
+		line-height: 18px;
 		overflow: hidden;
 	}
 	
