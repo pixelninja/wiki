@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:import href="../utilities/output.xsl" />
+	<xsl:import href="../utilities/toc.xsl" />
 	
 	<xsl:output method="html" omit-xml-declaration="yes" encoding="UTF-8" indent="no" />
 	
@@ -22,9 +23,9 @@
 			</xsl:choose>
 		</title>
 		
-		<base href="{constants/base-url}" />
 		<link rel="stylesheet" href="{constants/app-url}/assets/common.css" />
 		<script src="{constants/app-url}/assets/jquery.js"></script>
+		<script src="{constants/app-url}/assets/jquery.scrollto.js"></script>
 		<script src="{constants/app-url}/assets/codemirror/js/codemirror.js"></script>
 		<script src="{constants/app-url}/assets/common.js"></script>
 		
@@ -36,13 +37,13 @@
 		>
 			<nav>
 				<ul>
-					<li class="edit">Edit</li>
-					<li class="view">View</li>
-					<li class="save">Save</li>
+					<li class="home"><a href="{constants/base-url}/">Home</a></li>
+					<li class="edit"><a href="#edit">Edit</a></li>
+					<li class="view"><a href="#view">View</a></li>
+					<li class="save"><a>Save</a></li>
 				</ul>
 			</nav>
             <div id="view">
-            	<!--<xsl:copy-of select="actors/format/*" />-->
             	<xsl:apply-templates select="actors/format/*" mode="output" />
             </div>
         </div>

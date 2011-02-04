@@ -30,9 +30,6 @@
 		font-size: 14px;
 		line-height: 20px;
 	}
-	a {
-		cursor: pointer;
-	}
 	
 /* @end */
 
@@ -74,6 +71,9 @@
 			color-stop(0, hsla(0, 0%, 20%, 0.9)),
 			color-stop(1, hsla(0, 0%, 15%, 0.9))
 		);
+		box-shadow: none;
+		-moz-box-shadow: none;
+		-webkit-box-shadow: none;
 		color: #ffffff;
 		font-size: 12px;
 		height: 60px;
@@ -88,7 +88,7 @@
 	#document > nav ul {
 		list-style: none;
 	}
-	#document > nav li {
+	#document > nav li a {
 		background-color: hsl(78, 0%, 50%);
 		background-image: -moz-linear-gradient(
 			top, hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, 0.2)
@@ -109,16 +109,17 @@
 		float: left;
 		margin: 0 10px 0 0;
 		padding: 1px 10px 0 10px;
+		text-decoration: none;
 	}
-	#document > nav li:hover {
+	#document > nav li:hover a {
 		background-color: hsl(78, 0%, 40%);
 	}
-	#document > nav li.save {
+	#document > nav li.save a {
 		background-color: hsl(78, 50%, 50%);
 		float: right;
 		margin: 0;
 	}
-	#document > nav li.save:hover {
+	#document > nav li.save:hover a {
 		background-color: hsl(78, 50%, 40%);
 	}
 	
@@ -135,6 +136,15 @@
 	
 	/* @group Inline */
 		
+		#view a {
+			color: hsl(78, 50%, 40%);
+			cursor: pointer;
+		}
+		#view a.top {
+			color: #cccccc;
+			float: right;
+			text-decoration: none;
+		}
 		#view i,
 		#view em {
 			font-style: italic;
@@ -162,8 +172,6 @@
 			line-height: 40px;
 		}
 		#view h2 {
-			counter-increment: section;
-			counter-reset: subsection;
 			font-size: 22px;
 			line-height: 24px;
 			margin: 30px 0 15px 0;
@@ -173,30 +181,39 @@
 		#view h2:first-child {
 			page-break-before: auto;
 		}
-		#view h2:before {
-			font-weight: bold;
-			content: counter(section) '. ';
-		}
 		#view h3 {
-			counter-increment: subsection;
-			counter-reset: subsubsection;
 			font-size: 16px;
 			margin: 30px 0 10px 0;
-		}
-		#view h3:before {
-			font-weight: bold;
-			content: counter(section) '.' counter(subsection) '. ';
 		}
 		#view h2 + h3 {
 			margin-top: 15px;
 		}
 		#view h4 {
-			counter-increment: subsubsection;
 			font-weight: bold;
 			margin: 20px 0 5px 0;
 		}
-		#view h4:before {
-			content: counter(section) '.' counter(subsection) '.' counter(subsubsection) '. ';
+		
+		#view h2.highlight:before,
+		#view h3.highlight:before {
+			border: 6px solid transparent;
+			border-left-color: black;
+			display: inline-block;
+			content: ' ';
+			float: left;
+			height: 0;
+			margin: 4px 0 0 -12px;
+			width: 0;
+		}
+		#view h2.highlight:before {
+			border-width: 9px;
+			margin: 3px 0 0 -18px;
+		}
+		
+		#view h2 a.toc,
+		#view h3 a.toc {
+			color: inherit;
+			font-weight: bold;
+			text-decoration: none;
 		}
 		
 	/* @end */
@@ -254,34 +271,27 @@
 		
 		#view ol,
 		#view ul {
-			list-style-position: outside;
-			margin: 10px 0 10px 2.5em;
+			list-style: none;
+			margin: 10px 0 10px 20px;
 		}
 		#view ol li,
 		#view ul li {
 			clear: both;
 			margin: 0 0 0 0;
 		}
-		#view ol ol,
-		#view ol ul,
-		#view ul ol,
-		#view ul ul {
-			color: #555555;
-			list-style: none;
-			margin: 0;
+		#view ol ol:last-child,
+		#view ol ul:last-child,
+		#view ul ol:last-child,
+		#view ul ul:last-child {
+			margin: 0 0 10px 20px;
 		}
-		#view ol ol li,
-		#view ol ul li,
-		#view ul ol li,
-		#view ul ul li {
-			margin: 5px 0;
+		
+		#view ol {
+			counter-reset: orderedlist;
 		}
-		#view ol strong,
-		#view ul strong {
-			color: #555555;
-			float: right;
-			font-weight: normal;
-			width: 70%;
+		#view ol li:before {
+			counter-increment: orderedlist;
+			content: counter(orderedlist) '. ';
 		}
 		
 		#view dl {
@@ -292,6 +302,14 @@
 		}
 		#view dl dd {
 			margin: 0 0 5px 1em;
+		}
+		
+		#view ol.toc,
+		#view ol.toc li ol {
+			list-style: none;
+		}
+		#view ol.toc li:before {
+			content: '';
 		}
 		
 	/* @end */

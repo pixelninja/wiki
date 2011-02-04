@@ -36,13 +36,56 @@ var edit = {
 	},
 	
 	close: function() {
+		if (edit.widget) {
+			edit.widget.remove();
+		}
+		
 		edit.nav.show();
-		edit.widget.remove();
 		edit.codemirror = null;
 	}
 };
 
 var actions = {
+	change: function() {
+		var data = {};
+		
+		$.each(window.location.hash.substring(1).split('&'), function() {
+			var properties = this.split('=', 2);
+			var name, value = null;
+			
+			if (properties[0]) name = properties[0].replace(/\+/g, ' ');
+			if (properties[1]) value = properties[1].replace(/\+/g, ' ');
+			if (name == undefined) return;
+			
+			data[name] = value;
+		});
+		
+		// Remove section highlights:
+		$('h2.highlight, h3.highlight')
+			.removeClass('highlight');
+		
+		// Scroll and highlight a section:
+		if (data.view) {
+			var section = $('#section-' + data.view.replace(/[.]/g, '-'))
+				.parent()
+				.addClass('highlight');
+			
+			$.scrollTo(section, {
+				offset: {left: 0, top: -120}
+			});
+		}
+		
+		// Show editor:
+		if (data.edit !== undefined) {
+			actions.edit();
+		}
+		
+		// Show viewer:
+		else {
+			actions.preview();
+		}
+	},
+	
 	edit: function() {
 		view.widget
 			.addClass('loading');
@@ -103,24 +146,31 @@ var actions = {
 	},
 	
 	preview: function() {
-		edit.widget
-			.addClass('loading');
+		if (edit.widget) {
+			edit.widget
+				.addClass('loading');
+			
+			$.ajax({
+				url:		base_url + '/ajax/preview',
+				type:		'POST',
+				data:		{
+					'raw':		edit.codemirror.getCode()
+				},
+				dataType:	'html',
+				success:	function(data) {
+					view.widget
+						.html($(data).html());
+					
+					edit.close();
+					view.open();
+				}
+			});
+		}
 		
-		$.ajax({
-			url:		base_url + '/ajax/preview',
-			type:		'POST',
-			data:		{
-				'raw':		edit.codemirror.getCode()
-			},
-			dataType:	'html',
-			success:	function(data) {
-				view.widget
-					.html($(data).html());
-				
-				edit.close();
-				view.open();
-			}
-		});
+		else {
+			edit.close();
+			view.open();
+		}
 	},
 	
 	save: function() {
@@ -135,7 +185,8 @@ var actions = {
 				'raw':		edit.codemirror.getCode()
 			},
 			success:	function() {
-				actions.preview();
+				save.nav.hide();
+				window.location.hash = 'view';
 			}
 		});
 	}
@@ -151,13 +202,16 @@ $(document).bind('ready', function() {
 	edit.nav = $('nav .edit');
 	save.nav = $('nav .save').hide();
 	
+	// Wait for hash changes:
+	$(window)
+		.bind('hashchange', actions.change)
+		.trigger('hashchange');
+	
 	// Navigation:
-	$('#document nav .view')
-		.live('click', actions.preview);
-	
-	$('#document nav .edit')
-		.live('click', actions.edit);
-	
-	$('#document nav .save')
-		.live('click', actions.save);
+	$('#document nav .save a')
+		.live('click', function() {
+			actions.save();
+			
+			return false;
+		});
 });
