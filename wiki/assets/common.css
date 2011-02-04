@@ -311,6 +311,10 @@
 			content: counter(orderedlist) '. ';
 		}
 		
+		#view ul li:before {
+			content: '\2012\00a0';
+		}
+		
 		#view dl {
 			margin: 20px 0;
 		}
