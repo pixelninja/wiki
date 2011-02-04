@@ -9,5 +9,5 @@
 ## Installation
 
 1. Git clone the repository,
-2. Initialize and upate submodules,
+2. Initialize and update submodules,
 3. Copy and edit `.htaccess.example`.
