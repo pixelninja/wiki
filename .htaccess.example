@@ -1,9 +1,9 @@
 RewriteEngine on
-RewriteBase /wiki/
+RewriteBase /
 
 ### DO NOT APPLY RULES WHEN REQUESTING "favicon.ico"
-#RewriteCond %{REQUEST_FILENAME} favicon.ico [NC]
-#RewriteRule .* - [S=14]
+RewriteCond %{REQUEST_FILENAME} favicon.ico [NC]
+RewriteRule .* - [S=14]
 
 ### MAIN REWRITE - This will ignore directories
 RewriteCond %{REQUEST_FILENAME} !-d
