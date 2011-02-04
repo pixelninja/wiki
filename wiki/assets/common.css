@@ -347,6 +347,10 @@
 		
 		#view code {
 			background: hsla(0, 0%, 0%, 0.03);
+			border-radius: 5px;
+			-moz-border-radius: 5px;
+			-o-border-radius: 5px;
+			-webkit-border-radius: 5px;
 			font-family: 'monaco';
 			font-size: 13px;
 			line-height: 1;
