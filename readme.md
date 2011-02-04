@@ -3,6 +3,8 @@
 - Version: 0.1 alpha
 - Date: Undecided
 
+![Screenshot](https://github.com/rowan-lewis/wiki/raw/master/screenshot.png)
+
 
 ## Installation
 
