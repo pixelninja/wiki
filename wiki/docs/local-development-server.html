@@ -1,37 +1,37 @@
 <h1>Local development server</h1>
-
 <h2>Configuration</h2>
 
 All Apache configuration can be found in the <code>/etc/apache</code> directory on a development machine, this directory contains a git repository with the following file structure:
 
 <table>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-<tr>
-<td><code>assets/</code></td>
-<td>Resources for the running web server, including autoindex script</td>
-</tr>
-<tr>
-<td><code>httpd.conf</code></td>
-<td>The main Apache configuration - don't edit yourself</td>
-</tr>
-<tr>
-<td><code>mods-available/</code></td>
-<td>Extra Apache modules that can be loaded</td>
-</tr>
-<tr>
-<td><code>mods-enabled/</code></td>
-<td>Apache modules to be loaded - files are symlinks to mods-available</td>
-</tr>
-<tr>
-<td><code>profiles-available/</code></td>
-<td>Everyones personal Apache configuration</td>
-</tr>
-<tr>
-<td><code>profiles-enabled/</code></td>
-<td>Personal configuration to be loaded - files are symlinks to profiles-available</td>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td><code>assets/</code></td>
+        <td>Resources for the running web server, including autoindex script</td>
+    </tr>
+    <tr>
+        <td><code>httpd.conf</code></td>
+        <td>The main Apache configuration - don't edit yourself</td>
+    </tr>
+    <tr>
+        <td><code>mods-available/</code></td>
+        <td>Extra Apache modules that can be loaded</td>
+    </tr>
+    <tr>
+        <td><code>mods-enabled/</code></td>
+        <td>Apache modules to be loaded - files are symlinks to mods-available</td>
+    </tr>
+    <tr>
+        <td><code>profiles-available/</code></td>
+        <td>Everyones personal Apache configuration</td>
+    </tr>
+    <tr>
+        <td><code>profiles-enabled/</code></td>
+        <td>Personal configuration to be loaded - files are symlinks to profiles-available</td>
+    </tr>
 </table>
 
 
@@ -40,24 +40,24 @@ All Apache configuration can be found in the <code>/etc/apache</code> directory 
 Inside of the <code>profiles-available</code> directory you should find a file named <code><em>yourname</em>.conf</code>, this file contains the necessary information for Apache to run on your machine. It looks like this template:
 
 <pre>#------------------------------------------------------------------------------
-	
-	User			$1
-	Group			staff
-	
+    
+    User            $1
+    Group            staff
+    
 #------------------------------------------------------------------------------
-#	Virtual Hosts
+#    Virtual Hosts
 #------------------------------------------------------------------------------
-	
-	&lt;VirtualHost *:80&gt;
-		ServerName	$2.sites.randb.com.au
-		DocumentRoot	/Users/$1/Sites
-	&lt;/VirtualHost&gt;
-	
+    
+    &lt;VirtualHost *:80&gt;
+        ServerName    $2.sites.randb.com.au
+        DocumentRoot    /Users/$1/Sites
+    &lt;/VirtualHost&gt;
+    
 #------------------------------------------------------------------------------</pre>
 
 <ol>
-<li>Your username - can be found by running <code>id -un</code> from the terminal</li>
-<li>Your first name - check with someone to make sure DNS is setup</li>
+    <li>Your username - can be found by running <code>id -un</code> from the terminal</li>
+    <li>Your first name - check with someone to make sure DNS is setup</li>
 </ol>
 
 If you need to customize any part of your configuration, other than loading new Apache modules, you should do it in this file. Don't forget to commit and push so your configuration can be updated or restored from the repository.
@@ -98,14 +98,13 @@ Depending on the extension installed, the word <code>extension</code> may need t
 <pre>PHP Warning:  Xdebug MUST be loaded as a Zend extension in Unknown on line 0</pre>
 
 <h2>Tips and tricks</h2>
-
 <h3>Update your copy of git</h3>
 
 Both git and PHP where installed using the homebrew package manager for OS X, it's ridiculously easy to use.
 
 <ol>
-<li>Update homebrew: <code>brew update</code></li>
-<li>Install the latest version of git: <code>brew install git</code></li>
+    <li>Update homebrew: <code>brew update</code></li>
+    <li>Install the latest version of git: <code>brew install git</code></li>
 </ol>
 
 And you're done!
@@ -117,60 +116,60 @@ Homebrew also contains a lot more software than just git, you will also find bas
 I've also used homebrew to install the following extra packages on each development machine:
 
 <table>
-</tr>
-<tr>
-<th>Package</th>
-<th>Description</th>
-</tr>
-<tr>
-<td><code>fish</code></td>
-<td>A user friendly and colourful alternative to the default OS X terminal shell.</td>
-</tr>
-<tr>
-<td><code>htop</code></td>
-<td>A user friendly and colourful alternative to <code>top</code>.</td>
+    <tr>
+        <th>Package</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td><code>fish</code></td>
+        <td>A user friendly and colourful alternative to the default OS X terminal shell.</td>
+    </tr>
+    <tr>
+        <td><code>htop</code></td>
+        <td>A user friendly and colourful alternative to <code>top</code>.</td>
+    </tr>
 </table>
 
 To update all software installed using homebrew just run do the following:
 
 <ol>
-<li>Update homebrew: <code>brew update</code></li>
-<li>Install the latest version of anything outdated: <code>brew install (brew outdated)</code></li>
+    <li>Update homebrew: <code>brew update</code></li>
+    <li>Install the latest version of anything outdated: <code>brew install (brew outdated)</code></li>
 </ol>
 
 <h3>Other useful commands</h3>
 
 <table>
-</tr>
-<tr>
-<th>Command</th>
-<th>Description</th>
-</tr>
-<tr>
-<td><code>sudo apachectl stop</code></td>
-<td>Stop the web server</td>
-</tr>
-<tr>
-<td><code>sudo apachectl start</code></td>
-<td>Start the web server</td>
-</tr>
-<tr>
-<td><code>sudo apachectl restart</code></td>
-<td>Stop <em>and</em> restart the web server</td>
-</tr>
-<tr>
-<td><code>apachectl conftest</code></td>
-<td>Verify that your Apache configuration is OK</td>
-</tr>
-<tr>
-<td><code>php -v</code></td>
-<td>Verify that your PHP configuration is OK (Look for errors before the version is printed)</td>
-</tr>
-<tr>
-<td><code>sudo chown -R <em>username</em>:staff .</code></td>
-<td>Fix permissions of your <code>Sites</code> or <code>/private/etc/apache2</code> folder</td>
-</tr>
-<tr>
-<td><code>dscacheutil -flushcache</code></td>
-<td>Flush your DNS cache</td>
+    <tr>
+        <th>Command</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td><code>sudo apachectl stop</code></td>
+        <td>Stop the web server</td>
+    </tr>
+    <tr>
+        <td><code>sudo apachectl start</code></td>
+        <td>Start the web server</td>
+    </tr>
+    <tr>
+        <td><code>sudo apachectl restart</code></td>
+        <td>Stop <em>and</em> restart the web server</td>
+    </tr>
+    <tr>
+        <td><code>apachectl conftest</code></td>
+        <td>Verify that your Apache configuration is OK</td>
+    </tr>
+    <tr>
+        <td><code>php -v</code></td>
+        <td>Verify that your PHP configuration is OK (Look for errors before the version is printed)</td>
+    </tr>
+    <tr>
+        <td><code>sudo chown -R <em>username</em>:staff .</code></td>
+        <td>Fix permissions of your <code>Sites</code> or <code>/private/etc/apache2</code> folder</td>
+    </tr>
+    <tr>
+        <td><code>dscacheutil -flushcache</code></td>
+        <td>Flush your DNS cache</td>
+    </tr>
 </table>

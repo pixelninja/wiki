@@ -25,9 +25,15 @@
 		<base href="{constants/base-url}" />
 		<link rel="stylesheet" href="{constants/app-url}/assets/common.css" />
 		<script src="{constants/app-url}/assets/jquery.js"></script>
+		<script src="{constants/app-url}/assets/codemirror/js/codemirror.js"></script>
 		<script src="{constants/app-url}/assets/common.js"></script>
 		
-		<div id="document" data-file="{actors/format/@file}">
+		<div
+			id="document"
+			data-file="{actors/format/@file}"
+			data-asset-url="{constants/app-url}/assets"
+			data-base-url="{constants/base-url}"
+		>
 			<nav>
 				<ul>
 					<li class="edit">Edit</li>
@@ -39,7 +45,6 @@
             	<!--<xsl:copy-of select="actors/format/*" />-->
             	<xsl:apply-templates select="actors/format/*" mode="output" />
             </div>
-            <textarea id="edit"></textarea>
         </div>
 	</xsl:template>
 </xsl:stylesheet>

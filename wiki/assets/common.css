@@ -50,7 +50,19 @@
 		-moz-box-shadow: 0 0 15px hsla(0, 0%, 0%, 0.2);
 		-webkit-box-shadow: 0 0 15px hsla(0, 0%, 0%, 0.2);
 		padding: 120px 60px 60px 60px;
+		position: relative;
 		width: 840px;
+	}
+	#document > .loading:before {
+		background: hsla(0, 0%, 100%, 0.5);
+		bottom: 0;
+		content: ' ';
+		display: block;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+		z-index: 1;
 	}
 	#document > nav {
 		background: hsla(0, 0%, 15%, 0.9);
@@ -71,7 +83,7 @@
 		position: fixed;
 		top: 0;
 		width: 840px;
-		z-index: 1;
+		z-index: 2;
 	}
 	#document > nav ul {
 		list-style: none;
