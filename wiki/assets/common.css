@@ -260,22 +260,30 @@
 		}
 		#view table tr:first-child th:first-child,
 		#view table tr:first-child td:first-child {
+			border-top-left-radius: 5px;
 			-moz-border-radius-topleft: 5px;
+			-o-border-top-left-radius: 5px;
 			-webkit-border-top-left-radius: 5px;
 		}
 		#view table tr:first-child th:last-child,
 		#view table tr:first-child td:last-child {
+			border-top-right-radius: 5px;
 			-moz-border-radius-topright: 5px;
+			-o-border-top-right-radius: 5px;
 			-webkit-border-top-right-radius: 5px;
 		}
 		#view table tr:last-child th:first-child,
 		#view table tr:last-child td:first-child {
+			border-bottom-left-radius: 5px;
 			-moz-border-radius-bottomleft: 5px;
+			-o-border-bottom-left-radius: 5px;
 			-webkit-border-bottom-left-radius: 5px;
 		}
 		#view table tr:last-child th:last-child,
 		#view table tr:last-child td:last-child {
+			border-bottom-right-radius: 5px;
 			-moz-border-radius-bottomright: 5px;
+			-o-border-bottom-right-radius: 5px;
 			-webkit-border-bottom-right-radius: 5px;
 		}
 		#view table th {
