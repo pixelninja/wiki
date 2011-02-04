@@ -231,11 +231,15 @@
 	/* @group Tables */
 		
 		#view table {
-			border-bottom: 3px solid hsla(0, 0%, 0%, 0.1);
-			border-top: 3px solid hsla(0, 0%, 0%, 0.1);
+			background: hsla(0, 0%, 0%, 0.03);
+			border-radius: 10px;
+			-moz-border-radius: 10px;
+			-o-border-radius: 10px;
+			-webkit-border-radius: 10px;
 			border-spacing: 0;
 			font-size: 13px;
 			margin: 20px 0;
+			padding: 10px;
 			width: 100%;
 		}
 		#view table caption {
@@ -250,19 +254,32 @@
 			text-align: left;
 			vertical-align: top;
 		}
-		#view table td {
-			background: hsla(0, 0%, 0%, 0.03);
-		}
+		#view table tr:nth-child(2n-1) th,
 		#view table tr:nth-child(2n-1) td {
-			background: hsla(0, 0%, 0%, 0.06);
+			background: hsla(0, 0%, 0%, 0.04);
+		}
+		#view table tr:first-child th:first-child,
+		#view table tr:first-child td:first-child {
+			-moz-border-radius-topleft: 5px;
+			-webkit-border-top-left-radius: 5px;
+		}
+		#view table tr:first-child th:last-child,
+		#view table tr:first-child td:last-child {
+			-moz-border-radius-topright: 5px;
+			-webkit-border-top-right-radius: 5px;
+		}
+		#view table tr:last-child th:first-child,
+		#view table tr:last-child td:first-child {
+			-moz-border-radius-bottomleft: 5px;
+			-webkit-border-bottom-left-radius: 5px;
+		}
+		#view table tr:last-child th:last-child,
+		#view table tr:last-child td:last-child {
+			-moz-border-radius-bottomright: 5px;
+			-webkit-border-bottom-right-radius: 5px;
 		}
 		#view table th {
-			background: hsla(0, 0%, 0%, 0.1);
 			font-weight: bold;
-			text-transform: uppercase;
-		}
-		#view table tr:first-child th {
-			padding-top: 2px;
 		}
 		
 	/* @end */
@@ -332,13 +349,15 @@
 		}
 		#view pre {
 			background: hsla(0, 0%, 0%, 0.03);
-			border-bottom: 3px solid hsla(0, 0%, 0%, 0.1);
-			border-top: 3px solid hsla(0, 0%, 0%, 0.1);
+			border-radius: 10px;
+			-moz-border-radius: 10px;
+			-o-border-radius: 10px;
+			-webkit-border-radius: 10px;
 			font-family: 'monaco';
 			font-size: 12px;
 			line-height: 18px;
 			margin: 20px 0;
-			padding: 4px 8px;
+			padding: 10px;
 		}
 	
 	/* @group Paragraphs */
