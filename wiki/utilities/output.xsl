@@ -64,7 +64,7 @@
 			
 			<xsl:apply-templates select="* | text()" mode="output-inline" />
 			
-			<xsl:if test="$size &gt; 2">
+			<xsl:if test="$size &gt; 1">
 				<a class="top" href="#view">Top</a>
 			</xsl:if>
 		</xsl:element>
