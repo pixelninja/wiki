@@ -9,8 +9,7 @@
 			<xsl:for-each select="h2">
 				<xsl:variable name="tocsection" select="position()" />
 				<xsl:variable name="next" select="
-					position()
-					+ count(following-sibling::h3[
+					1 + count(following-sibling::h3[
 						preceding-sibling::h2[1] = current()
 					])
 				" />
