@@ -37,7 +37,10 @@
 		>
 			<nav>
 				<ul>
-					<li class="home"><a href="{constants/base-url}/">Home</a></li>
+					<xsl:if test="actors/format/@file != 'index'">
+						<li class="home"><a href="{constants/base-url}/">Home</a></li>
+					</xsl:if>
+					
 					<li class="edit"><a href="#edit">Edit</a></li>
 					<li class="view"><a href="#view">View</a></li>
 					<li class="save"><a>Save</a></li>

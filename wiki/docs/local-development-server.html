@@ -1,7 +1,7 @@
 <h1>Local development server</h1>
 <h2>Configuration</h2>
 
-All Apache configuration can be found in the <code>/etc/apache</code> directory on a development machine, this directory contains a git repository with the following file structure:
+All Apache configuration can be found in the <code>/etc/apache2</code> directory on a development machine, this directory contains a git repository with the following file structure:
 
 <table>
     <tr>
@@ -41,16 +41,16 @@ Inside of the <code>profiles-available</code> directory you should find a file n
 
 <pre>#------------------------------------------------------------------------------
     
-    User            $1
-    Group            staff
+    User                <b>&lt;1&gt;</b>
+    Group               staff
     
 #------------------------------------------------------------------------------
 #    Virtual Hosts
 #------------------------------------------------------------------------------
     
     &lt;VirtualHost *:80&gt;
-        ServerName    $2.sites.randb.com.au
-        DocumentRoot    /Users/$1/Sites
+        ServerName      <b>&lt;2&gt;</b>.sites.randb.com.au
+        DocumentRoot    /Users/<b>&lt;1&gt;</b>/Sites
     &lt;/VirtualHost&gt;
     
 #------------------------------------------------------------------------------</pre>
@@ -68,17 +68,17 @@ If you need an extra virtual host added to your configuration, just copy the fir
 
 The Apache repository also contains a custom auto index script, essentially Apache tries to load any <code>index.html</code> or <code>index.php</code> files in the current directory, failing that it instead loads <code>http://<em>yourdomain</em>/.autoindex/index.php</code>.
 
-The <code>/.autoindex</code> directory isn't physically inside of your Sites folder, instead it is in <code>/private/etc/apache2/assets</code>.
+The <code>/.autoindex</code> directory isn't physically inside of your Sites folder, instead it is in <code>/etc/apache2/assets</code>.
 
 Also setup as an alias is a simple <code>robots.txt</code> file which tells Google to never index your domain, if by accident it manages to do so.
 
-The entire server is password protected when accessed remotely, you will find the passwords file at <code>/private/etc/apache2/assets/passwords</code>. You can add a new username and password combination to this file using the <code>htpasswd</code> utility.
+The entire server is password protected when accessed remotely, you will find the passwords file at <code>/etc/apache2/assets/passwords</code>. You can add a new username and password combination to this file using the <code>htpasswd</code> utility.
 
 <h3>Loading new Apache modules</h3>
 
-To load a new Apache module, change into the <code>/private/etc/apache2/mods-enabled</code> directory and run the following command to make a symlink of the module configuration:
+To load a new Apache module, change into the <code>/etc/apache2/mods-enabled</code> directory and run the following command to make a symlink of the module configuration:
 
-<pre>ln -s /private/etc/apache2/mods-available/<em>modulename</em>.load</pre>
+<pre>ln -s /etc/apache2/mods-available/<em>modulename</em>.load</pre>
 
 If it has one, make sure to symlink the <code><em>modulename</em>.conf</code> file also.
 
@@ -166,7 +166,7 @@ To update all software installed using homebrew just run do the following:
     </tr>
     <tr>
         <td><code>sudo chown -R <em>username</em>:staff .</code></td>
-        <td>Fix permissions of your <code>Sites</code> or <code>/private/etc/apache2</code> folder</td>
+        <td>Fix permissions of your <code>Sites</code> or <code>/etc/apache2</code> folder</td>
     </tr>
     <tr>
         <td><code>dscacheutil -flushcache</code></td>
