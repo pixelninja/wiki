@@ -13,6 +13,19 @@
 		public function isIndex() {
 			return true;
 		}
+		
+		public function execute() {
+			parent::execute();
+			
+			$session = \Libs\Session::current();
+			$document = $this->document();
+			$root = $document->documentElement;
+			
+			// Append settings:
+			$settings = $document->createElement('settings');
+			$session->app()->settings()->appendXML($settings);
+			$root->appendChild($settings);
+		}
 	}
 	
 /*----------------------------------------------------------------------------*/

@@ -2,3 +2,4 @@
 .Apple*
 .DS*
 .htaccess
+config.php

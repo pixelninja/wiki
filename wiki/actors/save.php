@@ -7,12 +7,14 @@
 		public function execute(\Libs\DOM\Element $element) {
 			parent::execute($element);
 			
-			$constants = \Libs\Session::current()->constants();
-			$parameters = \Libs\Session::current()->parameters();
+			$session = \Libs\Session::current();
+			$settings = $session->app()->settings();
+			$constants = $session->constants();
+			$parameters = $session->parameters();
 			$file = $parameters->{'file'};
 			$raw = $parameters->{'raw'};
 			
-			if ($raw == '') return;
+			if ($settings->{'read-only'} !== true || $raw == '') return;
 			
 			file_put_contents($constants->{'app-dir'} . '/docs/' . $file . '.html', $raw);
 		}

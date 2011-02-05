@@ -13,14 +13,14 @@
 	$session->registerData();
 	
 	// Register the Debug App:
-	$session->registerApp(
-		Apps\Debug\App::instance()
-	);
+	$debug = Apps\Debug\App::instance();
+	$session->registerApp($debug);
 	
 	// Register the rdrkt App:
-	$session->registerApp(
-		Apps\Wiki\App::instance()
-	);
+	$wiki = Apps\Wiki\App::instance();
+	$session->registerApp($wiki);
+	
+	require_once 'config.php';
 	
 	// Begin:
 	$session->execute();

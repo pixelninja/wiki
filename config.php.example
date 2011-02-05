@@ -1,0 +1,6 @@
+<?php
+	
+	// Prevent editing of the wiki.
+	$wiki->settings()->{'read-only'} = false;
+	
+?>
