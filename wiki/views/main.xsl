@@ -9,9 +9,8 @@
 		<xsl:text disable-output-escaping="yes">&lt;!DOCTYPE html&gt;</xsl:text>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>
-			<xsl:if test="actors/format/@file != 'index'">
-				<xsl:text>Wiki &#x2022; </xsl:text>
-			</xsl:if>
+			<xsl:value-of select="settings/page-title" />
+			<xsl:text> &#x2022; </xsl:text>
 			
 			<xsl:choose>
 				<xsl:when test="normalize-space(actors/format//h1[1])">

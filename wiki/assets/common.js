@@ -109,6 +109,7 @@ var actions = {
 						content: $(data).text(),
 						height: 'dynamic',
 						minHeight: view.widget.innerHeight(),
+						disableSpellcheck: false,
 						
 						// Switch to editor:
 						onLoad: function() {
