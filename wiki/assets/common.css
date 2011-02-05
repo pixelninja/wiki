@@ -363,17 +363,8 @@
 			line-height: 1;
 			vertical-align: baseline;
 		}
-		#view dt code,
-		#view dd code,
-		#view li code,
-		#view p code {
-			xfont-size: 13px;
-		}
 		#view code * {
 			vertical-align: baseline;
-		}
-		#view table code {
-			font-size: 12px;
 		}
 		#view pre {
 			background: hsla(0, 0%, 0%, 0.03);
