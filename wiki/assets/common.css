@@ -36,16 +36,16 @@
 /* @group Document */
 	
 	#document {
-		height: 100%;
-		margin: 0 auto;
-		position: relative;
-		width: 840px;
-	}
-	#document > * {
 		background: #ffffff;
 		box-shadow: 0 0 15px hsla(0, 0%, 0%, 0.2);
 		-moz-box-shadow: 0 0 15px hsla(0, 0%, 0%, 0.2);
 		-webkit-box-shadow: 0 0 15px hsla(0, 0%, 0%, 0.2);
+		margin: 0 auto;
+		min-height: 100%;
+		position: relative;
+		width: 840px;
+	}
+	#document > * {
 		padding: 120px 60px 60px 60px;
 		position: relative;
 		width: 840px;
@@ -144,9 +144,11 @@
 		#view a:hover {
 			text-decoration: underline;
 		}
+		#view a.home,
 		#view a.top {
 			color: #cccccc;
 			float: right;
+			margin: 0 0 0 20px;
 			text-decoration: none;
 		}
 		#view a[rel = external]:after {
@@ -220,6 +222,14 @@
 		
 	/* @end */
 	
+	/* @group Navigation */
+		
+		#view nav {
+			
+		}
+		
+	/* @end */
+	
 	/* @group Images */
 		
 		#view img {
@@ -262,22 +272,30 @@
 		}
 		#view table tr:first-child th:first-child,
 		#view table tr:first-child td:first-child {
+			border-top-left-radius: 5px;
 			-moz-border-radius-topleft: 5px;
+			-o-border-top-left-radius: 5px;
 			-webkit-border-top-left-radius: 5px;
 		}
 		#view table tr:first-child th:last-child,
 		#view table tr:first-child td:last-child {
+			border-top-right-radius: 5px;
 			-moz-border-radius-topright: 5px;
+			-o-border-top-right-radius: 5px;
 			-webkit-border-top-right-radius: 5px;
 		}
 		#view table tr:last-child th:first-child,
 		#view table tr:last-child td:first-child {
+			border-bottom-left-radius: 5px;
 			-moz-border-radius-bottomleft: 5px;
+			-o-border-bottom-left-radius: 5px;
 			-webkit-border-bottom-left-radius: 5px;
 		}
 		#view table tr:last-child th:last-child,
 		#view table tr:last-child td:last-child {
+			border-bottom-right-radius: 5px;
 			-moz-border-radius-bottomright: 5px;
+			-o-border-bottom-right-radius: 5px;
 			-webkit-border-bottom-right-radius: 5px;
 		}
 		#view table th {

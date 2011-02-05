@@ -1,0 +1,11 @@
+RewriteEngine on
+RewriteBase /
+
+### DO NOT APPLY RULES WHEN REQUESTING "favicon.ico"
+RewriteCond %{REQUEST_FILENAME} favicon.ico [NC]
+RewriteRule .* - [S=14]
+
+### MAIN REWRITE - This will ignore directories
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php?_=$1&%{QUERY_STRING} [L]

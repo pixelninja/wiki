@@ -45,6 +45,10 @@
 				</a>
 			</xsl:if>
 			
+			<xsl:if test="$size &gt; 1">
+				<a class="top" href="#view">Top</a>
+			</xsl:if>
+			
 			<xsl:if test="$size = 3">
 				<xsl:variable name="section" select="preceding-sibling::h2[1]" />
 				<xsl:variable name="position" select="count(preceding-sibling::h2)" />
@@ -63,10 +67,6 @@
 			</xsl:if>
 			
 			<xsl:apply-templates select="* | text()" mode="output-inline" />
-			
-			<xsl:if test="$size &gt; 2">
-				<a class="top" href="#view">Top</a>
-			</xsl:if>
 		</xsl:element>
 		
 		<xsl:if test="$size = 1">
