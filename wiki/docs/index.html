@@ -1,18 +1,44 @@
-<h1>The R&amp;B Wiki</h1>
-<h2>Development</h2>
+<h1>Wiki</h1>
+<h2>About the wiki</h2>
+
+The  Affliction Wiki is a lightweight, easy to use and most important, easy  to read wiki engine. No longer will your wiki documents look like the  designer had no care for typography, instead they will be a thing of  beauty, well <em>maybe</em>.
+
+One of the things you'll probably notice, as soon as you hit the <em>edit</em> button, is that every document is written in HTML. This lets you enter <em>anything</em> you  want into a document without having to struggle with a limited language  such as Markdown, or some obscure language only known to your wiki  developer.
+
+The one difference you  should know about - you don't have to enter your own paragraph elements,  instead the wiki takes care of it for you, making the source for your  documents much more readable.
+
+Click <em>edit</em> and see for yourself.
+
+<h2>Installation</h2>
+
+It's  pretty easy to install the wiki, as there is currently no release,  there is no package to download. Instead we will be fetching the latest  version from source control using git.
 
 <dl>
-    <dt><a href="/local-development-server">Local development server</a></dt>
-    <dd>Information about the Apache, PHP and Homebrew configuration on each development mac.</dd>
-    <dt><a href="/the-git-guide">The Git Guide</a></dt>
-    <dd>A quick and simple guide for using git, included links to useful resources.</dd>
+    <dt>Use git to clone the repository:</dt>
+    <dd><code>git clone git://github.com/rowan-lewis/wiki.git</code></dd>
+    <dt>Copy the example .htaccess file:</dt>
+    <dd><code>cd wiki; cp .htaccess.example .htaccess</code></dd>
+    <dt>Copy the example config.php file:</dt>
+    <dd><code>cp config.php config.php</code></dd>
+    <dt>Configure the wiki to run in a sub directory:</dt>
+    <dd>Edit the .htaccess file and change the line <code>RewriteBase /</code> to match your sub directory</dd>
 </dl>
 
-<h2>Examples</h2>
+<strong>Thats it!</strong> Your  wiki should be up and running. To create a new document, simply go to  the index of your wiki and add the name of your document to the URL. A  blank document will automatically be created with the name you entered -  all you need to do is click edit.
 
-<dl>
-    <dt><a href="/gaia-retreat-from-drupal-to-symphony">Gaia Retreat, from Drupal to Symphony</a></dt>
-    <dd>An awful, extremely annoying document.</dd>
-</dl>
+<h2>Securing your wiki</h2>
 
-Please add your own entries above, thank you.
+The easiest way to secure your wiki is to put it into read only mode, just edit the <code>config.php</code> file and set the <code>read-only</code> flag to <code>false</code>.  Of course, this also prevents you from doing anything with your wiki...  but that's ok if it's only you or a small team who will be editing the  wiki. Just setup a second copy somewhere private:
+
+<ul>
+    <li>Put the second copy in a password protected directory</li>
+    <li>You needn't put the second copy on a public server</li>
+</ul>
+
+Then you can share documents between your wikis:
+
+<ul>
+    <li>Use SFTP to upload your documents, this is the lame option</li>
+    <li>Symlink the <code>wiki/docs</code> dir between the two copies</li>
+    <li>Use git or another version control system to share documents</li>
+</ul>
