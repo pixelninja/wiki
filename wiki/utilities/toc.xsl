@@ -19,7 +19,7 @@
 					<xsl:text>. </xsl:text>
 					
 					<a href="#view={$tocsection}">
-						<xsl:value-of select="." />
+						<xsl:apply-templates select="node()" mode="output-toc" />
 					</a>
 					
 					<xsl:if test="following-sibling::h3[position() &lt; $next]">
@@ -32,7 +32,7 @@
 									<xsl:text>. </xsl:text>
 									
 									<a href="#view={$tocsection}.{position()}">
-										<xsl:value-of select="." />
+										<xsl:apply-templates select="node()" mode="output-toc" />
 									</a>
 								</li>
 							</xsl:for-each>
@@ -41,5 +41,26 @@
 				</li>
 			</xsl:for-each>
 		</ol>
+	</xsl:template>
+	
+	<!-- Inline Elements -->
+	<xsl:template match="*" mode="output-toc">
+		<xsl:element name="{name()}">
+			<xsl:apply-templates select="* | @* | text()" mode="output-toc" />
+		</xsl:element>
+	</xsl:template>
+	
+	<xsl:template match="a" mode="output-toc" />
+	
+	<!-- Inline Attributes -->
+	<xsl:template match="@*" mode="output-toc">
+		<xsl:attribute name="{name()}">
+			<xsl:value-of select="." />
+		</xsl:attribute>
+	</xsl:template>
+	
+	<!-- Inline Text -->
+	<xsl:template match="text()" mode="output-toc">
+		<xsl:value-of select="." />
 	</xsl:template>
 </xsl:stylesheet>
