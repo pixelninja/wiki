@@ -14,7 +14,7 @@
 			$file = $parameters->{'file'};
 			$raw = $parameters->{'raw'};
 			
-			if ($settings->{'read-only'} !== true || $raw == '') return;
+			if ($settings->{'read-only'} === false || $raw == '') return;
 			
 			file_put_contents($constants->{'app-dir'} . '/docs/' . $file . '.html', $raw);
 		}
