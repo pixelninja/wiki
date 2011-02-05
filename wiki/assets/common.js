@@ -207,6 +207,14 @@ $(document).bind('ready', function() {
 		.bind('hashchange', actions.change)
 		.trigger('hashchange');
 	
+	// External links in new windows:
+	$('a[rel = external]')
+		.live('click', function() {
+			window.open($(this).attr('href'));
+			
+			return false;
+		});
+	
 	// Navigation:
 	$('#document nav .save a')
 		.live('click', function() {

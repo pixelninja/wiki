@@ -145,6 +145,9 @@
 			float: right;
 			text-decoration: none;
 		}
+		#view a[rel = external]:after {
+			content: '\21b4';
+		}
 		#view i,
 		#view em {
 			font-style: italic;
@@ -338,12 +341,16 @@
 	/* @group Code */
 		
 		#view code {
-			background: hsla(0, 0%, 0%, 0.03);
 			font-family: 'monaco';
-			font-size: 13px;
+			font-size: 95%;
 			line-height: 1;
-			padding: 2px 4px;
 			vertical-align: baseline;
+		}
+		#view dt code,
+		#view dd code,
+		#view li code,
+		#view p code {
+			xfont-size: 13px;
 		}
 		#view code * {
 			vertical-align: baseline;
@@ -366,6 +373,15 @@
 	
 	/* @group Paragraphs */
 		
+		#view blockquote {
+			background: hsla(0, 0%, 0%, 0.03);
+			border-radius: 10px;
+			-moz-border-radius: 10px;
+			-o-border-radius: 10px;
+			-webkit-border-radius: 10px;
+			margin: 20px 0;
+			padding: 10px;
+		}
 		#view p {
 			margin: 10px 0;
 		}
