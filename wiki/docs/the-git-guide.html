@@ -93,3 +93,17 @@ If you come up with a format you want to use every time you run <tt>git log</tt>
 <pre>git config --global format.pretty "%Cred%h %Cgreenby %an %ar%n%Creset%s%n"</pre>
 
 See <tt>git help log</tt> and the <a href="http://book.git-scm.com/3_reviewing_history_-_git_log.html">Git Book</a> for more information.
+
+<h3>Don't overuse <code>git add .</code></h3>
+
+You shouldn't need to use <code>git add .</code> very often, in fact the most appropriate time to use it is when creating a new repository. You should instead git add specific files, or specific directories, otherwise you risk accidentally adding files that you didn't need to commit.
+
+If you're just trying to tell git to commit to commit your changes, and don't want to use <code>git add <em>filename</em><code> for each of files you have edited, no problem - the <a href="http://book.git-scm.com/3_normal_workflow.html">Git Book explains how</a>:
+
+<blockquote>
+    Alternatively, instead of running git add beforehand, you can use
+    
+    <pre>$ git commit -a</pre>
+    
+    which will automatically notice any modified (but not new) files, add them to the index, and commit, all in one step.
+</blockquote>
