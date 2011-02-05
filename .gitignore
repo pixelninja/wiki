@@ -1,3 +1,4 @@
 *.esproj
 .Apple*
 .DS*
+.htaccess
