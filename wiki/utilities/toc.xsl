@@ -22,7 +22,7 @@
 						<xsl:value-of select="." />
 					</a>
 					
-					<xsl:if test="following-sibling::h3">
+					<xsl:if test="following-sibling::h3[position() &lt; $next]">
 						<ol>
 							<xsl:for-each select="following-sibling::h3[position() &lt; $next]">
 								<li>
