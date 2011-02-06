@@ -4,21 +4,7 @@
 	namespace Apps\Wiki\Libs;
 	
 	class HTML {
-		public function format($source, $options) {
-			$options = (object)array_merge(
-				array(
-					'pretty-acronyms'			=> false,
-					'pretty_ampersands'			=> false,
-					'pretty_quotation_marks'	=> false,
-					'pretty_dashes'				=> false,
-					'pretty_ellipses'			=> false,
-					'pretty_sentence_spacing'	=> false,
-					'pretty_symbols'			=> false,
-					'prevent_widowed_words'		=> false
-				),
-				$options
-			);
-			
+		public function format($source, \Libs\Collections\Parameters $options) {
 			// Switch tabs for space:
 			$this->reindent($source);
 			
@@ -67,7 +53,7 @@
 				}
 				
 				// Make quotation marks pretty:
-				if ($options->pretty_quotation_marks) {
+				if ($options->{'pretty-quotation-marks'}->get()) {
 					$search = array_merge(
 						$search,
 						array(
@@ -91,7 +77,7 @@
 				}
 				
 				// Make sentences pretty:
-				if ($options->pretty_sentence_spacing) {
+				if ($options->{'pretty-sentence-spacing'}->get()) {
 					$search = array_merge(
 						$search,
 						array(
@@ -107,7 +93,7 @@
 				}
 				
 				// Make acronyms pretty:
-				if ($options->pretty_acronyms) {
+				if ($options->{'pretty-acronyms'}->get()) {
 					$search = array_merge(
 						$search,
 						array(
@@ -123,7 +109,7 @@
 				}
 				
 				// Make ellipses pretty:
-				if ($options->pretty_ellipses) {
+				if ($options->{'pretty-ellipses'}->get()) {
 					$search = array_merge(
 						$search,
 						array(
@@ -139,7 +125,7 @@
 				}
 				
 				// Make dashes pretty:
-				if ($options->pretty_dashes) {
+				if ($options->{'pretty-dashes'}->get()) {
 					$search = array_merge(
 						$search,
 						array(
@@ -157,7 +143,7 @@
 				}
 				
 				// Make symbols pretty:
-				if ($options->pretty_symbols) {
+				if ($options->{'pretty-symbols'}->get()) {
 					$search = array_merge(
 						$search,
 						array(
@@ -196,7 +182,7 @@
 				}
 				
 				// Prevent widows:
-				if ($options->prevent_widowed_words) {
+				if ($options->{'prevent-widowed-words'}->get()) {
 					$content = preg_replace(
 						'/((^|\s)\S{0,20})\s(\S{0,20})$/',
 						'\1&#160;\3', $content
@@ -204,7 +190,7 @@
 				}
 				
 				// Wrap dashes:
-				if ($options->pretty_dashes) {
+				if ($options->{'pretty-dashes'}->get()) {
 					$content = str_replace(
 						array(
 							'&#8212;',
@@ -219,7 +205,7 @@
 				}
 				
 				// Wrap ampersands:
-				if ($options->pretty_ampersands) {
+				if ($options->{'pretty-ampersands'}->get()) {
 					$content = preg_replace(
 						'/&#38;|&amp;/i',
 						'<span class="ampersand">&#38;</span>', $content
@@ -227,7 +213,7 @@
 				}
 				
 			    // Wrap quotation marks:
-				if ($options->pretty_quotation_marks) {
+				if ($options->{'pretty-quotation-marks'}->get()) {
 					$content = str_replace(
 						array(
 					    	'&#8216;',
@@ -250,7 +236,7 @@
 				}
 				
 				// Wrap ellipsis:
-				if ($options->pretty_ellipses) {
+				if ($options->{'pretty-ellipses'}->get()) {
 					$content = str_replace(
 						'&#8230;', '<span class="ellipsis">&#8230;</span>', $content
 					);

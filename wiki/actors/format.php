@@ -8,6 +8,7 @@
 			parent::execute($element);
 			
 			$session = \Libs\Session::current();
+			$settings = $session->app()->settings();
 			$parameters = $session->parameters();
 			
 			// Find current document name:
@@ -41,16 +42,7 @@
 			if ($raw == '') return;
 			
 			$html = new \Apps\Wiki\Libs\HTML();
-			$tidy = $html->format($raw, array(
-				'pretty_acronyms'			=> true,
-				'pretty_ampersands'			=> true,
-				'pretty_dashes'				=> true,
-				'pretty_ellipses'			=> true,
-				'pretty_quotation_marks'	=> true,
-				'pretty_sentence_spacing'	=> true,
-				'pretty_symbols'			=> true,
-				'prevent_widowed_words'		=> true
-			));
+			$tidy = $html->format($raw, $settings);
 			
 			$fragment = $document->createDocumentFragment();
 			$fragment->appendXML($tidy);

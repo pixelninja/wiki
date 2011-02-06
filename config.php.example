@@ -1,9 +1,56 @@
 <?php
 	
-	// Set a custom page title:
+	/**
+	* Set a custom page title
+	*/
 	$settings->{'page-title'} = 'Wiki';
 	
-	// Prevent editing of the wiki.
+	/**
+	* Prevent editing of the wiki.
+	*/
 	$settings->{'read-only'} = false;
+	
+	/*
+	* Convert acronyms entered as "IBM(International Business Machines)" into acronym elements.
+	*/
+	$settings->{'pretty-acronyms'} = true;
+	
+	/**
+	* Wraps ampersands with span elements for styling.
+	*/
+	$settings->{'pretty-ampersands'} = true;
+	
+	/**
+	* Convert double hyphens into em dashes (long) and single hyphens into en dashes (short).
+	* Also wrapps the dashes with span elements for styling.
+	*/
+	$settings->{'pretty-dashes'} = true;
+	
+	/**
+	* Converts three full stops in a row into a horizontal ellipsis character.
+	* Also wraps the esipsies with span elements for styling.
+	*/
+	$settings->{'pretty-ellipses'} = true;
+	
+	/**
+	* Convert plain quotation marks to their fancier sixty-six or single six marks.
+	* Does not apply to preformatted text, wraps quotes with spans for styling.
+	*/
+	$settings->{'pretty-quotation-marks'} = true;
+	
+	/**
+	* Use typewriter or English spacing, two spaces after a full stop.
+	*/
+	$settings->{'pretty-sentence-spacing'} = false;
+	
+	/**
+	* Convert (c) (tm) and (r) to their unicode symbols.
+	*/
+	$settings->{'pretty-symbols'} = true;
+	
+	/**
+	* Inserts a non breaking space between the last two words in a sentence:
+	*/
+	$settings->{'prevent-widowed-words'} = true;
 	
 ?>
