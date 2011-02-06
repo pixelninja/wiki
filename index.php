@@ -19,6 +19,7 @@
 	// Register the rdrkt App:
 	$wiki = Apps\Wiki\App::instance();
 	$session->registerApp($wiki);
+	$settings = $wiki->settings();
 	
 	require_once 'config.php';
 	
