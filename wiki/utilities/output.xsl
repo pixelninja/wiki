@@ -119,7 +119,7 @@
 	</xsl:template>
 	
 	<xsl:template match="@href" mode="output-inline">
-		<xsl:if test="starts-with(., 'http://')">
+		<xsl:if test="starts-with(., 'http://') or starts-with(., 'https://')">
 			<xsl:attribute name='rel'>external</xsl:attribute>
 		</xsl:if>
 		

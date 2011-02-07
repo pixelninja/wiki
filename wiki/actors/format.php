@@ -12,22 +12,33 @@
 			$parameters = $session->parameters();
 			
 			// Find document url:
-			$path = strtolower($parameters->{'current-path'});
-			$path = preg_replace('%[^/\w]+%', '-', $path);
-			$path = preg_replace('%(^[-]+|[-]+$|[-]+(?=/)|(?<=/)[-]+)%', null, $path);
+			$url = strtolower($parameters->{'current-path'});
+			$url = preg_replace('%[^/\w]+%', '-', $url);
+			$url = preg_replace('%(^[-]+|[-]+$|[-]+(?=/)|(?<=/)[-]+)%', null, $url);
 			
 			// No path? Use index:
-			if ($path == '') {
-				$path = 'index';
+			if ($url == '') {
+				$url = 'index';
 				$file = $session->constants()->{'app-dir'} . '/docs/index.html';
 			}
 			
 			else {
-				$file = str_replace('/', '.', $path);
-				$file = $session->constants()->{'app-dir'} . '/docs/' . $file . '.html';
+				$dir = $session->constants()->{'app-dir'} . '/docs';
+				$file = $dir . '/' . $url . '.html';
+				$created = false;
+				
+				// Create directory:
+				if (!is_dir(dirname($file))) {
+					foreach (explode('/', dirname($url)) as $current) {
+						$dir .= '/' . $current;
+						
+						if (!is_dir($dir)) mkdir($dir);
+					}
+				}
 				
 				// Create a new empty document?
 				if (!is_file($file)) {
+					$created = true;
 					$title = $parameters->{'current-path'};
 					$title = trim(preg_replace('%^.*/%', null, $title));
 					
@@ -35,12 +46,14 @@
 				}
 				
 				// Redirect to serialised document:
-				if ($path != (string)$parameters->{'current-path'}) {
-					header('Location: ' . $session->constants()->{'base-url'} . '/' . $path); exit;
+				if ($url != (string)$parameters->{'current-path'}) {
+					header('Location: ' . $session->constants()->{'base-url'} . '/' . $url . (
+						$created ? '#edit' : null
+					)); exit;
 				}
 			}
 			
-			$element->setAttribute('file', $path);
+			$element->setAttribute('file', $url);
 			
 			$raw = file_get_contents($file);
 			$document = $element->ownerDocument;
