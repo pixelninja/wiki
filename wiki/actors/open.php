@@ -7,10 +7,17 @@
 		public function execute(\Libs\DOM\Element $element) {
 			parent::execute($element);
 			
-			$constants = \Libs\Session::current()->constants();
-			$parameters = \Libs\Session::current()->parameters();
+			$session = \Libs\Session::current();
+			$constants = $session->constants();
+			$parameters = $session->parameters();
 			
-			$raw = file_get_contents($constants->{'app-dir'} . '/docs/' . $parameters->{'file'} . '.html');
+			$url = (
+				$parameters->{'document-url'} != ''
+					? $parameters->{'document-url'}
+					: 'index'
+			);
+			
+			$raw = file_get_contents($constants->{'app-dir'} . '/docs/' . $url . '.html');
 			$element->nodeValue = htmlentities($raw);
 		}
 	}

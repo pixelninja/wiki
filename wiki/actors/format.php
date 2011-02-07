@@ -18,7 +18,6 @@
 			
 			// No path? Use index:
 			if ($url == '') {
-				$url = 'index';
 				$file = $session->constants()->{'app-dir'} . '/docs/index.html';
 			}
 			
@@ -53,7 +52,7 @@
 				}
 			}
 			
-			$element->setAttribute('file', $url);
+			$parameters->{'document-url'} = $url;
 			
 			$raw = file_get_contents($file);
 			$document = $element->ownerDocument;

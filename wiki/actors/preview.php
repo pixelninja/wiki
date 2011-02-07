@@ -10,12 +10,13 @@
 			$session = \Libs\Session::current();
 			$settings = $session->app()->settings();
 			$parameters = $session->parameters();
-			$raw = $parameters->{'raw'};
 			
-			if ($raw == '') return;
+			$content = $parameters->{'document-content'};
+			
+			if ($content == '') return;
 			
 			$html = new \Apps\Wiki\Libs\HTML();
-			$tidy = $html->format($raw, $settings);
+			$tidy = $html->format($content, $settings);
 			
 			$fragment = $element->ownerDocument->createDocumentFragment();
 			$fragment->appendXML($tidy);

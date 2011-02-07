@@ -119,13 +119,22 @@
 	</xsl:template>
 	
 	<xsl:template match="@href" mode="output-inline">
-		<xsl:if test="starts-with(., 'http://') or starts-with(., 'https://')">
+		<xsl:variable name="is-external" select="starts-with(., 'http://') or starts-with(., 'https://')" />
+		<xsl:variable name="is-root" select="starts-with(., '/')" />
+		<xsl:variable name="is-bookmark" select="starts-with(., '#')" />
+		
+		<xsl:if test="$is-external">
 			<xsl:attribute name='rel'>external</xsl:attribute>
 		</xsl:if>
 		
 		<xsl:attribute name="{name()}">
-			<xsl:if test="starts-with(., '/')">
-				<xsl:value-of select="/view/constants/base-url" />
+			<xsl:if test="$is-root">
+				<xsl:value-of select="$constants/base-url" />
+			</xsl:if>
+			
+			<xsl:if test="not($is-external or $is-root or $is-bookmark) and $parameters/document-url != ''">
+				<xsl:value-of select="$parameters/document-url" />
+				<xsl:text>/</xsl:text>
 			</xsl:if>
 			
 			<xsl:value-of select="." />

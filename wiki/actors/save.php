@@ -11,12 +11,13 @@
 			$settings = $session->app()->settings();
 			$constants = $session->constants();
 			$parameters = $session->parameters();
-			$file = $parameters->{'file'};
-			$raw = $parameters->{'raw'};
 			
-			if ($settings->{'read-only'} === false || $raw == '') return;
+			$url = $parameters->{'document-url'};
+			$content = $parameters->{'document-content'};
 			
-			file_put_contents($constants->{'app-dir'} . '/docs/' . $file . '.html', $raw);
+			if ($settings->{'read-only'} === false || $content == '') return;
+			
+			file_put_contents($constants->{'app-dir'} . '/docs/' . $url . '.html', $content);
 		}
 	}
 	

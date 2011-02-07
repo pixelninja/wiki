@@ -94,7 +94,7 @@ var actions = {
 			url:		base_url + '/ajax/open',
 			type:		'POST',
 			data:		{
-				'file':		$('#document').attr('data-file')
+				'document-url':		$('#document').attr('data-document-url')
 			},
 			dataType:	'html',
 			success:	function(data) {
@@ -155,7 +155,8 @@ var actions = {
 				url:		base_url + '/ajax/preview',
 				type:		'POST',
 				data:		{
-					'raw':		edit.codemirror.getCode()
+					'document-url':		$('#document').attr('data-document-url'),
+					'document-content':	edit.codemirror.getCode()
 				},
 				dataType:	'html',
 				success:	function(data) {
@@ -182,8 +183,8 @@ var actions = {
 			url:		base_url + '/ajax/save',
 			type:		'POST',
 			data:		{
-				'file':		$('#document').attr('data-file'),
-				'raw':		edit.codemirror.getCode()
+				'document-url':		$('#document').attr('data-document-url'),
+				'document-content':	edit.codemirror.getCode()
 			},
 			success:	function() {
 				save.nav.hide();
