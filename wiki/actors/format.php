@@ -11,15 +11,10 @@
 			$settings = $session->app()->settings();
 			$parameters = $session->parameters();
 			
-			// Find current document name:
-			$path = $parameters->{'current-path'};
-			$path = strtolower(trim(preg_replace('%\W+%', '-', $path), '-'));
-			$file = $session->constants()->{'app-dir'} . '/docs/' . $path . '.html';
-			
-			// Redirect to serialised document:
-			if ($path != (string)$parameters->{'current-path'}) {
-				header('Location: ' . $session->constants()->{'base-url'} . '/' . $path); exit;
-			}
+			// Find document url:
+			$path = strtolower($parameters->{'current-path'});
+			$path = preg_replace('%[^/\w]+%', '-', $path);
+			$path = preg_replace('%(^[-]+|[-]+$|[-]+(?=/)|(?<=/)[-]+)%', null, $path);
 			
 			// No path? Use index:
 			if ($path == '') {
@@ -27,11 +22,22 @@
 				$file = $session->constants()->{'app-dir'} . '/docs/index.html';
 			}
 			
-			// Create a new empty document?
-			if (!is_file($file)) {
-				$title = ucfirst(strtr($path, '-', ' '));
+			else {
+				$file = str_replace('/', '.', $path);
+				$file = $session->constants()->{'app-dir'} . '/docs/' . $file . '.html';
 				
-				file_put_contents($file, '<h1>' . $title . '</h1>');
+				// Create a new empty document?
+				if (!is_file($file)) {
+					$title = $parameters->{'current-path'};
+					$title = trim(preg_replace('%^.*/%', null, $title));
+					
+					file_put_contents($file, '<h1>' . $title . '</h1>');
+				}
+				
+				// Redirect to serialised document:
+				if ($path != (string)$parameters->{'current-path'}) {
+					header('Location: ' . $session->constants()->{'base-url'} . '/' . $path); exit;
+				}
 			}
 			
 			$element->setAttribute('file', $path);
