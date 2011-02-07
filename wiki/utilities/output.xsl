@@ -27,6 +27,10 @@
 			</xsl:choose>
 		</xsl:variable>
 		
+		<xsl:if test="$size = 2 and not(preceding-sibling::h2)">
+			<xsl:apply-templates select=".." mode="toc" />
+		</xsl:if>
+		
 		<xsl:element name="h{$size}">
 			<xsl:attribute name="id">
 				<xsl:variable name="position">
@@ -68,19 +72,35 @@
 			
 			<xsl:apply-templates select="* | text()" mode="output-inline" />
 		</xsl:element>
-		
-		<xsl:if test="$size = 1">
-			<xsl:apply-templates select=".." mode="toc" />
-		</xsl:if>
 	</xsl:template>
 	
-	<xsl:template match="dt|dd|li|p" mode="output" priority="1">
+	<xsl:template match="dt|li|p" mode="output" priority="1">
 		<xsl:variable name="name">
 			<xsl:value-of select="name()" />
 		</xsl:variable>
 		
 		<xsl:element name="{$name}">
 			<xsl:apply-templates select="* | @* | text()" mode="output-inline" />
+		</xsl:element>
+	</xsl:template>
+	
+	<xsl:template match="dd" mode="output" priority="1">
+		<xsl:variable name="name">
+			<xsl:value-of select="name()" />
+		</xsl:variable>
+		
+		<xsl:element name="{$name}">
+			<xsl:apply-templates select="* | @* | text()" mode="output" />
+		</xsl:element>
+	</xsl:template>
+	
+	<xsl:template match="dd[count(p) = 1]" mode="output" priority="1">
+		<xsl:variable name="name">
+			<xsl:value-of select="name()" />
+		</xsl:variable>
+		
+		<xsl:element name="{$name}">
+			<xsl:apply-templates select="p/* | @* | p/text()" mode="output-inline" />
 		</xsl:element>
 	</xsl:template>
 	

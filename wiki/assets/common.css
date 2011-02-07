@@ -154,6 +154,9 @@
 		#view a[rel = external]:after {
 			content: '\21b4';
 		}
+		#view acronym {
+			border-bottom: 1px dotted hsla(0, 0%, 0%, 0.2);
+		}
 		#view i,
 		#view em {
 			font-style: italic;
@@ -377,6 +380,7 @@
 			line-height: 18px;
 			margin: 20px 0;
 			padding: 10px;
+			white-space: pre-wrap;
 		}
 	
 	/* @group Paragraphs */
