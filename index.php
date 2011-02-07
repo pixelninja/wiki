@@ -12,13 +12,13 @@
 	// Register current data:
 	$session->registerData();
 	
-	// Register the Debug App:
-	$debug = Apps\Debug\App::instance();
-	$session->registerApp($debug);
-	
 	// Register the Error App:
 	$error = Apps\Error\App::instance();
 	$session->registerApp($error);
+	
+	// Register the Debug App:
+	$debug = Apps\Debug\App::instance();
+	$session->registerApp($debug);
 	
 	// Register the Wiki App:
 	$wiki = Apps\Wiki\App::instance();
