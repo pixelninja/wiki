@@ -16,7 +16,11 @@
 	$debug = Apps\Debug\App::instance();
 	$session->registerApp($debug);
 	
-	// Register the rdrkt App:
+	// Register the Error App:
+	$error = Apps\Error\App::instance();
+	$session->registerApp($error);
+	
+	// Register the Wiki App:
 	$wiki = Apps\Wiki\App::instance();
 	$session->registerApp($wiki);
 	$settings = $wiki->settings();
