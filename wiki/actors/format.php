@@ -52,19 +52,28 @@
 				}
 			}
 			
-			$parameters->{'document-url'} = $url;
+			try {
+				$parameters->{'document-url'} = $url;
+				$content = file_get_contents($file);
+				$document = $element->ownerDocument;
+				
+				if ($content == '') {
+					throw new \Exception('Cannot format, no content given.');
+				}
+				
+				$html = new \Apps\Wiki\Libs\HTML();
+				$content = $html->format($content, $settings);
+				
+				$fragment = $document->createDocumentFragment();
+				$fragment->appendXML($content);
+				$element->appendChild($fragment);
+				$element->setAttribute('success', 'yes');
+			}
 			
-			$raw = file_get_contents($file);
-			$document = $element->ownerDocument;
-			
-			if ($raw == '') return;
-			
-			$html = new \Apps\Wiki\Libs\HTML();
-			$tidy = $html->format($raw, $settings);
-			
-			$fragment = $document->createDocumentFragment();
-			$fragment->appendXML($tidy);
-			$element->appendChild($fragment);
+			catch (\Exception $e) {
+				$element->setAttribute('success', 'no');
+				$element->setAttribute('message', $e->getMessage());
+			}
 		}
 	}
 	

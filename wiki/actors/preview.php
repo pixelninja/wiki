@@ -12,15 +12,26 @@
 			$parameters = $session->parameters();
 			
 			$content = $parameters->{'document-content'};
+			$element->setAttribute('success', 'no');
 			
-			if ($content == '') return;
+			try {
+				if ($content == '') {
+					throw new \Exception('Cannot preview, no content given.');
+				}
+				
+				$html = new \Apps\Wiki\Libs\HTML();
+				$content = $html->format($content, $settings);
+				
+				$fragment = $element->ownerDocument->createDocumentFragment();
+				$fragment->appendXML($content);
+				$element->appendChild($fragment);
+				$element->setAttribute('success', 'yes');
+			}
 			
-			$html = new \Apps\Wiki\Libs\HTML();
-			$tidy = $html->format($content, $settings);
-			
-			$fragment = $element->ownerDocument->createDocumentFragment();
-			$fragment->appendXML($tidy);
-			$element->appendChild($fragment);
+			catch (\Exception $e) {
+				$element->setAttribute('success', 'no');
+				$element->setAttribute('message', $e->getMessage());
+			}
 		}
 	}
 	

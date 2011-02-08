@@ -17,8 +17,16 @@
 					: 'index'
 			);
 			
-			$raw = file_get_contents($constants->{'app-dir'} . '/docs/' . $url . '.html');
-			$element->nodeValue = htmlentities($raw);
+			try {
+				$content = file_get_contents($constants->{'app-dir'} . '/docs/' . $url . '.html');
+				$element->nodeValue = htmlentities($content);
+				$element->setAttribute('success', 'yes');
+			}
+			
+			catch (\Exception $e) {
+				$element->setAttribute('success', 'no');
+				$element->setAttribute('message', $e->getMessage());
+			}
 		}
 	}
 	

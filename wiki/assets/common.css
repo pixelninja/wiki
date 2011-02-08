@@ -182,6 +182,7 @@
 			font-size: 38px;
 			font-weight: bold;
 			line-height: 40px;
+			margin: 20px 0;
 		}
 		#view h2 {
 			font-size: 22px;
@@ -335,7 +336,7 @@
 		}
 		
 		#view ul li:before {
-			content: '\2012\00a0';
+			content: '\2013\00a0';
 		}
 		
 		#view dl {

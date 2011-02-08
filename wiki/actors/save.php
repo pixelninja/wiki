@@ -12,12 +12,31 @@
 			$constants = $session->constants();
 			$parameters = $session->parameters();
 			
-			$url = $parameters->{'document-url'};
 			$content = $parameters->{'document-content'};
+			$url = (
+				$parameters->{'document-url'} != ''
+					? $parameters->{'document-url'}
+					: 'index'
+			);
 			
-			if ($settings->{'read-only'} === false || $content == '') return;
+			try {
+				if ($settings->{'read-only'} === false) {
+					throw new \Exception('Cannot save while in read-only mode.');
+				}
+				
+				if ($content == '') {
+					throw new \Exception('Cannot save, no content given.');
+				}
+				
+				file_put_contents($constants->{'app-dir'} . '/docs/' . $url . '.html', $content);
+				
+				$element->setAttribute('success', 'yes');
+			}
 			
-			file_put_contents($constants->{'app-dir'} . '/docs/' . $url . '.html', $content);
+			catch (\Exception $e) {
+				$element->setAttribute('success', 'no');
+				$element->setAttribute('message', $e->getMessage());
+			}
 		}
 	}
 	
