@@ -151,6 +151,10 @@
 			margin: 0 0 0 20px;
 			text-decoration: none;
 		}
+		#view a.home:hover,
+		#view a.top:hover {
+			color: #aaaaaa;
+		}
 		#view a[rel = external]:after {
 			content: '\21b4';
 		}
@@ -354,6 +358,7 @@
 	/* @group Breadcrumb */
 		
 		#view nav.breadcrumb ol {
+			color: #999999;
 			font-size: 11px;
 			line-height: 14px;
 			margin: 0;
@@ -371,8 +376,11 @@
 		#view nav.breadcrumb li:first-child:before {
 			display: none;
 		}
-		#view nav.breadcrumb li:last-child a {
-			color: #aaaaaa;
+		#view nav.breadcrumb li a {
+			color: #bbbbbb;
+		}
+		#view nav.breadcrumb li a:hover {
+			color: #999999;
 		}
 		#view nav.breadcrumb + h1 {
 			margin-top: 10px;
