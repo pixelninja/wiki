@@ -11,21 +11,41 @@
 			
 			$session = \Libs\Session::current();
 			$settings = $session->app()->settings();
+			$constants = $session->constants();
 			$parameters = $session->parameters();
+			$document = $element->ownerDocument;
 			
 			$url = $parameters->{'document-url'}->get();
-			$documents = (
+			$files = (
 				$url != ''
-					? $documents = explode('/', $url)
+					? explode('/', $url)
 					: array()
 			);
 			$path = '';
 			
-			foreach ($documents as $document) {
-				$path = ltrim($path . '/' . $document, '/');
-				$item = $element->ownerDocument->createElement('item');
-				$item->setAttribute('path', $path);
-				$item->setAttribute('name', str_replace('-', ' ', $document));
+			foreach ($files as $file) {
+				$path = $path . '/' . $file;
+				$name = ucfirst(str_replace('-', ' ', $file));
+				
+				try {
+					$xml = new \Libs\DOM\Document();
+					$xml->loadHTMLFile(sprintf(
+						'%s/docs%s.html',
+						$constants->{'app-dir'},
+						$path
+					));
+					$value = $xml->{'string(//h1[1])'};
+					
+					if ($value) $name = $value;
+				}
+				
+				catch (\Exception $e) {
+					// De-serialised name is fine.
+				}
+				
+				$item = $document->createElement('item');
+				$item->setAttribute('path', ltrim($path, '/'));
+				$item->setAttribute('name', $name);
 				$element->appendChild($item);
 			}
 		}
