@@ -345,11 +345,15 @@
 			margin: 0 0 5px 1em;
 		}
 		
-		#view ol.toc,
-		#view ol.toc li ol {
+	/* @end */
+	
+	/* @group Table of Contents */
+		
+		#view nav.contents ol,
+		#view nav.contents ol li ol {
 			list-style: none;
 		}
-		#view ol.toc li:before {
+		#view nav.contents ol li:before {
 			content: '';
 		}
 		

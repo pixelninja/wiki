@@ -5,42 +5,44 @@
 	<xsl:template match="*[count(h2 | h3) &gt; 3 and count(*) &gt; 9]" mode="toc">
 		<h2>Table of contents</h2>
 		
-		<ol class="toc">
-			<xsl:for-each select="h2">
-				<xsl:variable name="tocsection" select="position()" />
-				<xsl:variable name="next" select="
-					1 + count(following-sibling::h3[
-						preceding-sibling::h2[1] = current()
-					])
-				" />
-				
-				<li>
-					<xsl:value-of select="$tocsection" />
-					<xsl:text>. </xsl:text>
+		<nav class="contents">
+			<ol>
+				<xsl:for-each select="h2">
+					<xsl:variable name="tocsection" select="position()" />
+					<xsl:variable name="next" select="
+						1 + count(following-sibling::h3[
+							preceding-sibling::h2[1] = current()
+						])
+					" />
 					
-					<a href="#view={$tocsection}">
-						<xsl:apply-templates select="node()" mode="output-toc" />
-					</a>
-					
-					<xsl:if test="following-sibling::h3[position() &lt; $next]">
-						<ol>
-							<xsl:for-each select="following-sibling::h3[position() &lt; $next]">
-								<li>
-									<xsl:value-of select="$tocsection" />
-									<xsl:text>.</xsl:text>
-									<xsl:value-of select="position()" />
-									<xsl:text>. </xsl:text>
-									
-									<a href="#view={$tocsection}.{position()}">
-										<xsl:apply-templates select="node()" mode="output-toc" />
-									</a>
-								</li>
-							</xsl:for-each>
-						</ol>
-					</xsl:if>
-				</li>
-			</xsl:for-each>
-		</ol>
+					<li>
+						<xsl:value-of select="$tocsection" />
+						<xsl:text>. </xsl:text>
+						
+						<a href="#view={$tocsection}">
+							<xsl:apply-templates select="node()" mode="output-toc" />
+						</a>
+						
+						<xsl:if test="following-sibling::h3[position() &lt; $next]">
+							<ol>
+								<xsl:for-each select="following-sibling::h3[position() &lt; $next]">
+									<li>
+										<xsl:value-of select="$tocsection" />
+										<xsl:text>.</xsl:text>
+										<xsl:value-of select="position()" />
+										<xsl:text>. </xsl:text>
+										
+										<a href="#view={$tocsection}.{position()}">
+											<xsl:apply-templates select="node()" mode="output-toc" />
+										</a>
+									</li>
+								</xsl:for-each>
+							</ol>
+						</xsl:if>
+					</li>
+				</xsl:for-each>
+			</ol>
+		</nav>
 	</xsl:template>
 	
 	<!-- Inline Elements -->
