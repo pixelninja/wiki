@@ -226,14 +226,6 @@
 		
 	/* @end */
 	
-	/* @group Navigation */
-		
-		#view nav {
-			
-		}
-		
-	/* @end */
-	
 	/* @group Images */
 		
 		#view img {
@@ -355,6 +347,35 @@
 		}
 		#view ol.toc li:before {
 			content: '';
+		}
+		
+	/* @end */
+	
+	/* @group Breadcrumb */
+		
+		#view nav.breadcrumb ol {
+			font-size: 11px;
+			line-height: 14px;
+			margin: 0;
+			overflow: hidden;
+		}
+		#view nav.breadcrumb li {
+			clear: none;
+			float: left;
+			text-transform: uppercase;
+		}
+		#view nav.breadcrumb li:before {
+			content: '\2022';
+			margin: 0 1ex;
+		}
+		#view nav.breadcrumb li:first-child:before {
+			display: none;
+		}
+		#view nav.breadcrumb li:last-child a {
+			color: #aaaaaa;
+		}
+		#view nav.breadcrumb + h1 {
+			margin-top: 10px;
 		}
 		
 	/* @end */

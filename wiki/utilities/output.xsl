@@ -27,6 +27,22 @@
 			</xsl:choose>
 		</xsl:variable>
 		
+		<xsl:if test="$size = 1 and not(preceding-sibling::h1)">
+			<nav class="breadcrumb">
+				<ol>
+					<li><a href="{$constants/base-url}">Home</a></li>
+					
+					<xsl:for-each select="$location">
+						<li>
+							<a href="{$constants/base-url}/{@path}">
+								<xsl:value-of select="@name" />
+							</a>
+						</li>
+					</xsl:for-each>
+				</ol>
+			</nav>
+		</xsl:if>
+		
 		<xsl:if test="$size = 2 and not(preceding-sibling::h2)">
 			<xsl:apply-templates select=".." mode="toc" />
 		</xsl:if>

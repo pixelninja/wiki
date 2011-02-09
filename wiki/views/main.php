@@ -8,6 +8,7 @@
 			$actors = \Libs\Session::current()->actors();
 			
 			$actors->{'format'} = 'Actors\Format';
+			$actors->{'location'} = 'Actors\Location';
 		}
 		
 		public function isIndex() {

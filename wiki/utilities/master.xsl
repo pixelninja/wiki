@@ -8,4 +8,5 @@
 	<xsl:variable name="constants" select="/view/constants" />
 	<xsl:variable name="parameters" select="/view/parameters" />
 	<xsl:variable name="settings" select="/view/settings" />
+	<xsl:variable name="location" select="/view/actors/location/item" />
 </xsl:stylesheet>
