@@ -8,6 +8,7 @@
 			$actors = \Libs\Session::current()->actors();
 			
 			$actors->{'format'} = 'Actors\Format';
+			$actors->{'children'} = 'Actors\Children';
 			$actors->{'location'} = 'Actors\Location';
 		}
 		

@@ -7,8 +7,6 @@
 		public function execute(\Libs\DOM\Element $element) {
 			parent::execute($element);
 			
-			ini_set('html_errors', true);
-			
 			$session = \Libs\Session::current();
 			$settings = $session->app()->settings();
 			$constants = $session->constants();

@@ -278,23 +278,7 @@
 			// so that we can reinstate them later:
 			$source = str_replace("\n", $substitute, $source);
 			
-			$tidy = new \Tidy();
-			$tidy->parseString(
-				$source, array(
-					'drop-font-tags'				=> true,
-					'drop-proprietary-attributes'	=> true,
-					'hide-comments'					=> true,
-					'numeric-entities'				=> true,
-					'output-xhtml'					=> true,
-					'wrap'							=> 0,
-					
-					// Stuff to get rid of awful word this:
-					'bare'							=> true,
-					'word-2000'						=> true
-				), 'utf8'
-			);
-			
-			$source = $tidy->body()->value;
+			$this->cleanup($source);
 			
 			// Reinstate newlines:
 			$source = str_replace($substitute, "\n", $source);
@@ -304,6 +288,7 @@
 			$tidy = new \Tidy();
 			$tidy->parseString(
 				$source, array(
+					'new-blocklevel-tags'			=> 'children, content',
 					'drop-font-tags'				=> true,
 					'drop-proprietary-attributes'	=> true,
 					'hide-comments'					=> true,
@@ -334,7 +319,7 @@
 				'th', 'form', 'fieldset', 'label', 'input', 'button',
 				'select', 'datalist', 'optgroup', 'option', 'textarea',
 				'keygen', 'output', 'details', 'datagrid', 'command',
-				'bb', 'menu', 'legend', 'div'
+				'bb', 'menu', 'legend', 'div', 'children'
 			);
 			
 			// Find nodes that may contain paragraphs:

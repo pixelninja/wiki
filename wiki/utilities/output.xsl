@@ -14,6 +14,31 @@
 		</xsl:attribute>
 	</xsl:template>
 	
+	<!-- Children -->
+	<xsl:template select="children" mode="output" />
+	
+	<xsl:template match="children[/view/actors/children/item]" mode="output">
+		<nav class="children">
+			<dl>
+				<xsl:for-each select="/view/actors/children/item">
+					<dt>
+						<a href="{$constants/base-url}/{@path}">
+							<xsl:value-of select="@name" />
+						</a>
+					</dt>
+					<dd>
+						<xsl:apply-templates select="*" mode="output" />
+					</dd>
+				</xsl:for-each>
+			</dl>
+		</nav>
+	</xsl:template>
+	
+	<!-- Content -->
+	<xsl:template match="content" mode="output">
+		<xsl:apply-templates select=".." mode="toc" />
+	</xsl:template>
+	
 	<!-- Inline Parents -->
 	<xsl:template match="h1|h2|h3|h4|h5|h6" mode="output" priority="1">
 		<xsl:variable name="size">
@@ -43,17 +68,7 @@
 			</nav>
 		</xsl:if>
 		
-		<xsl:if test="$size = 2 and not(preceding-sibling::h2)">
-			<xsl:apply-templates select=".." mode="toc" />
-		</xsl:if>
-		
 		<xsl:element name="h{$size}">
-			<xsl:attribute name="id">
-				<xsl:variable name="position">
-					<xsl:number count="h1|h2|h3|h4|h5|h6" />
-				</xsl:variable>
-			</xsl:attribute>
-			
 			<xsl:apply-templates select="@*" mode="output-inline" />
 			
 			<xsl:if test="$size = 2">

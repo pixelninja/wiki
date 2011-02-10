@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:template match="*" mode="toc" />
 	
-	<xsl:template match="*[count(h2 | h3) &gt; 3 and count(*) &gt; 9]" mode="toc">
+	<xsl:template match="*[h2]" mode="toc">
 		<h2>Table of contents</h2>
 		
 		<nav class="contents">
