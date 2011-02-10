@@ -62,8 +62,14 @@
 				$item->setAttribute('name', $name);
 				$element->appendChild($item);
 				
-				if (isset($fragment)) {
-					$item->appendChild($fragment);
+				try {
+					if (isset($fragment)) {
+						$item->appendChild($fragment);
+					}
+				}
+				
+				catch (\Exception $e) {
+					// Bad API - no way to test if document fragment is empty.
 				}
 			}
 		}

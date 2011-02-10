@@ -1,6 +1,6 @@
 [submodule "affliction"]
 	path = affliction
-	url = git@github.com:rowan-lewis/affliction.git
+	url = git://github.com/rowan-lewis/affliction.git
 [submodule "wiki/assets/codemirror"]
 	path = wiki/assets/codemirror
 	url = http://marijnhaverbeke.nl/git/codemirror
