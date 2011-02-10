@@ -23,6 +23,8 @@
 			);
 			
 			foreach (glob($search) as $file) {
+				if (basename($file) == 'index.html') continue;
+				
 				$path = $url . '/' . basename($file, '.html');
 				$name = ucfirst(str_replace('-', ' ', basename($path)));
 				$content = file_get_contents($file);

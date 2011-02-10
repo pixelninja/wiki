@@ -37,7 +37,7 @@
 						<li class="home"><a href="{$constants/base-url}/">Home</a></li>
 					</xsl:if>
 					
-					<li class="history"><a href="#history">History</a></li>
+					<!--<li class="history"><a href="#history">History</a></li>-->
 					<li class="view"><a href="#view">View</a></li>
 					
 					<xsl:if test="$settings/read-only = 'no'">
