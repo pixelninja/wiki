@@ -19,6 +19,9 @@
 			$settings = $this->settings();
 			
 			require_once '../config.php';
+			
+			// Allow document access via 'documents://':
+			\Apps\Wiki\Libs\DocumentStream::create();
 		}
 		
 		public function settings() {

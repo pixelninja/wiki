@@ -16,23 +16,24 @@
 			$url = $parameters->{'document-url'}->get();
 			$files = (
 				$url != ''
-					? explode('/', $url)
-					: array()
+					? explode('/', '/' . $url)
+					: array('')
 			);
 			$path = '';
 			
 			foreach ($files as $file) {
-				$path = $path . '/' . $file;
+				$path = ltrim($path . '/' . $file, '/');
 				$name = ucfirst(str_replace('-', ' ', $file));
+				$content = file_get_contents('document://' . $path);
 				
 				try {
+					$html = new \Apps\Wiki\Libs\HTML();
 					$xml = new \Libs\DOM\Document();
-					$xml->loadHTMLFile(sprintf(
-						'%s/docs%s.html',
-						$constants->{'app-dir'},
-						$path
+					$xml->loadXML(sprintf(
+						'<data>%s</data>',
+						$html->format($content, $settings)
 					));
-					$value = $xml->{'string(//h1[1])'};
+					$value = $xml->{'string(/data/h1[1])'};
 					
 					if ($value) $name = $value;
 				}
@@ -42,7 +43,7 @@
 				}
 				
 				$item = $document->createElement('item');
-				$item->setAttribute('path', ltrim($path, '/'));
+				$item->setAttribute('path', $path);
 				$item->setAttribute('name', $name);
 				$element->appendChild($item);
 			}

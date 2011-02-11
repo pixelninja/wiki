@@ -7,8 +7,6 @@
 		public function execute(\Libs\DOM\Element $element) {
 			parent::execute($element);
 			
-			ini_set('html_errors', true);
-			
 			$session = \Libs\Session::current();
 			$settings = $session->app()->settings();
 			$constants = $session->constants();
@@ -22,12 +20,11 @@
 				$url
 			);
 			
-			foreach (glob($search) as $file) {
-				if (basename($file) == 'index.html') continue;
+			foreach (scandir('directory://' . $url) as $file) {
+				if (preg_match('%^[.]%', $file) || !is_file('document://' . $url . '/' . $file)) continue;
 				
-				$path = $url . '/' . basename($file, '.html');
-				$name = ucfirst(str_replace('-', ' ', basename($path)));
-				$content = file_get_contents($file);
+				$name = ucfirst(str_replace('-', ' ', $file));
+				$content = file_get_contents('document://' . $url . '/' . $file);
 				
 				try {
 					$html = new \Apps\Wiki\Libs\HTML();
@@ -60,7 +57,7 @@
 				}
 				
 				$item = $document->createElement('item');
-				$item->setAttribute('path', $path);
+				$item->setAttribute('path', $url . '/' . $file);
 				$item->setAttribute('name', $name);
 				$element->appendChild($item);
 				

@@ -55,8 +55,6 @@
 		<xsl:if test="$size = 1 and not(preceding-sibling::h1)">
 			<nav class="breadcrumb">
 				<ol>
-					<li><a href="{$constants/base-url}">Home</a></li>
-					
 					<xsl:for-each select="$location">
 						<li>
 							<a href="{$constants/base-url}/{@path}">

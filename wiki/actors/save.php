@@ -13,11 +13,7 @@
 			$parameters = $session->parameters();
 			
 			$content = $parameters->{'document-content'};
-			$url = (
-				$parameters->{'document-url'} != ''
-					? $parameters->{'document-url'}
-					: 'index'
-			);
+			$url = $parameters->{'document-url'}->get();
 			
 			try {
 				if ($settings->{'read-only'} === false) {
@@ -28,7 +24,7 @@
 					throw new \Exception('Cannot save, no content given.');
 				}
 				
-				file_put_contents($constants->{'app-dir'} . '/docs/' . $url . '.html', $content);
+				file_put_contents('document://' . $url, $content);
 				
 				$element->setAttribute('success', 'yes');
 			}

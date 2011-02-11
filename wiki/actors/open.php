@@ -11,14 +11,10 @@
 			$constants = $session->constants();
 			$parameters = $session->parameters();
 			
-			$url = (
-				$parameters->{'document-url'} != ''
-					? $parameters->{'document-url'}
-					: 'index'
-			);
+			$url = $parameters->{'document-url'};
 			
 			try {
-				$content = file_get_contents($constants->{'app-dir'} . '/docs/' . $url . '.html');
+				$content = file_get_contents('document://' . $url);
 				$element->nodeValue = htmlentities($content);
 				$element->setAttribute('success', 'yes');
 			}
