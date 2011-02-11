@@ -2,18 +2,20 @@
 /*----------------------------------------------------------------------------*/
 	
 	namespace Apps\Wiki\Actors;
+	use \Libs\Session as Session;
+	use \Apps\Wiki\Libs\Document as Document;
 	
 	class Open extends \Libs\Actor {
 		public function execute(\Libs\DOM\Element $element) {
 			parent::execute($element);
 			
-			$session = \Libs\Session::current();
+			$session = Session::current();
 			$constants = $session->constants();
 			$parameters = $session->parameters();
 			
 			try {
 				$url = $parameters->{'document-url'};
-				$wiki = new \Apps\Wiki\Libs\Document($url);
+				$wiki = new Document($url);
 				$wiki->appendUnformattedTo($element);
 				$element->setAttribute('success', 'yes');
 			}

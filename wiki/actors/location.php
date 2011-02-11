@@ -2,12 +2,14 @@
 /*----------------------------------------------------------------------------*/
 	
 	namespace Apps\Wiki\Actors;
+	use \Libs\Session as Session;
+	use \Apps\Wiki\Libs\Document as Document;
 	
 	class Location extends \Libs\Actor {
 		public function execute(\Libs\DOM\Element $element) {
 			parent::execute($element);
 			
-			$session = \Libs\Session::current();
+			$session = Session::current();
 			$settings = $session->app()->settings();
 			$constants = $session->constants();
 			$parameters = $session->parameters();
@@ -24,7 +26,7 @@
 				
 				foreach ($files as $file) {
 					$url = ltrim($url . '/' . $file, '/');
-					$wiki = new \Apps\Wiki\Libs\Document($url);
+					$wiki = new Document($url);
 					
 					$item = $document->createElement('item');
 					$item->setAttribute('path', $wiki->getURL());

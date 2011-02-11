@@ -2,12 +2,14 @@
 /*----------------------------------------------------------------------------*/
 	
 	namespace Apps\Wiki\Actors;
+	use \Libs\Session as Session;
+	use \Apps\Wiki\Libs\Document as Document;
 	
 	class Format extends \Libs\Actor {
 		public function execute(\Libs\DOM\Element $element) {
 			parent::execute($element);
 			
-			$session = \Libs\Session::current();
+			$session = Session::current();
 			$settings = $session->app()->settings();
 			$parameters = $session->parameters();
 			
@@ -46,7 +48,7 @@
 			
 			try {
 				$parameters->{'document-url'} = $url;
-				$wiki = new \Apps\Wiki\Libs\Document($url);
+				$wiki = new Document($url);
 				
 				$wiki->appendFormattedTo($element);
 				$element->setAttribute('success', 'yes');

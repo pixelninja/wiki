@@ -2,12 +2,14 @@
 /*----------------------------------------------------------------------------*/
 	
 	namespace Apps\Wiki\Actors;
+	use \Libs\Session as Session;
+	use \Apps\Wiki\Libs\Document as Document;
 	
 	class Preview extends \Libs\Actor {
 		public function execute(\Libs\DOM\Element $element) {
 			parent::execute($element);
 			
-			$session = \Libs\Session::current();
+			$session = Session::current();
 			$settings = $session->app()->settings();
 			$parameters = $session->parameters();
 			
