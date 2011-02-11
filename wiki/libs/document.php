@@ -4,40 +4,89 @@
 	namespace Apps\Wiki\Libs;
 	
 	class Document {
-		public function registerDocumentStream($name = 'docs') {
+		protected $formatted;
+		protected $unformatted;
+		protected $url;
+		protected $name;
+		
+		public function __construct($url) {
+			$this->url = $url;
 			
+			if (is_file('document://' . $url)) {
+				$this->loadUnformatted(file_get_contents('document://' . $url));
+			}
 		}
 		
-		/*
-		protected $unformatted;
-		protected $xml;
-		
-		public function open($filename) {
-			if (!is_file($filename) && is_readable($filename)) {
-				throw new Exception(sprintf(
-					"Unable to read file '%s'.", $filename
-				));
+		public function appendExcerptTo(\Libs\DOM\Element $parent) {
+			$excerpt = $this->getExcerpt();
+			
+			if ($excerpt === false) return false;
+			
+			try {
+				$fragment = $parent->ownerDocument->createDocumentFragment();
+				$fragment->appendXML($excerpt);
+				$parent->appendChild($fragment);
 			}
 			
-			$this->unformatted = file_get_contents($filename);
+			catch (\Exception $e) {
+				return false;
+			}
+			
+			return true;
 		}
 		
-		public function formatted() {
-			return $this->formatted;
-		}
-		
-		public function unformatted() {
-			return $this->unformatted;
-		}
-		
-		public function appendFormattedXML($element) {
+		public function appendFormattedTo(\Libs\DOM\Element $parent) {
 			
 		}
-		*/
-	}
-	
-	class DocumentStream {
 		
+		public function loadUnformatted($unformatted) {
+			$settings = \Libs\Session::current()->app()->settings();
+			$html = new \Apps\Wiki\Libs\HTML();
+			$xml = new \Libs\DOM\Document();
+			$xml->loadXML(
+				'<data>' . $html->format($unformatted, $settings) . '</data>'
+			);
+			
+			$this->name = $xml->{'string(/data/h1[1])'};
+			$this->formatted = $xml;
+			$this->unformatted = $unformatted;
+		}
+		
+		public function getChildren() {
+			$children = array();
+			
+			foreach (scandir('directory://' . $this->url) as $file) {
+				if (preg_match('%^[.]%', $file) || !is_file('document://' . $this->url . '/' . $file)) continue;
+				
+				$children[] = new Document($this->url . '/' . $file);
+			}
+			
+			return $children;
+		}
+		
+		public function getExcerpt() {
+			$node = $this->formatted->{'/data/p[1]'}->current();
+			
+			if (!$node) return false;
+			
+			return $node->saveXML();
+		}
+		
+		public function getParent() {
+			return new Document(dirname($this->url));
+		}
+		
+		public function getName() {
+			return $this->name;
+		}
+		
+		public function getURL() {
+			return $this->url;
+		}
+		
+		public function hasParent() {
+			return strlen($this->url) !== 0;
+		}
 	}
 	
 /*---------------------------------------------------------------------------*/

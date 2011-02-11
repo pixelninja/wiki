@@ -9,7 +9,7 @@
 			
 			$actors->{'format'} = 'Actors\Format';
 			$actors->{'children'} = 'Actors\Children';
-			$actors->{'location'} = 'Actors\Location';
+			//$actors->{'location'} = 'Actors\Location';
 		}
 		
 		public function isIndex() {
