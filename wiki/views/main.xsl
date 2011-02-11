@@ -6,17 +6,20 @@
 		<xsl:text disable-output-escaping="yes">&lt;!DOCTYPE html&gt;</xsl:text>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>
-			<xsl:value-of select="settings/page-title" />
-			<xsl:text> &#x2022; </xsl:text>
+			<xsl:value-of select="actors/location/item[1]/@name" />
 			
-			<xsl:choose>
-				<xsl:when test="normalize-space(actors/format//h1[1])">
-					<xsl:value-of select="normalize-space(actors/format//h1[1])" />
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:text>Untitled Document</xsl:text>
-				</xsl:otherwise>
-			</xsl:choose>
+			<xsl:if test="actors/location/item[2]">
+				<xsl:text> &#x2022; </xsl:text>
+				
+				<xsl:choose>
+					<xsl:when test="normalize-space(actors/location/item[last()]/@name)">
+						<xsl:value-of select="normalize-space(actors/location/item[last()]/@name)" />
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:text>Untitled Document</xsl:text>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:if>
 		</title>
 		
 		<link rel="stylesheet" href="{$constants/app-url}/assets/common.css" />
