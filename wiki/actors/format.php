@@ -46,19 +46,9 @@
 			
 			try {
 				$parameters->{'document-url'} = $url;
-				$content = file_get_contents('document://' . $url);
-				$document = $element->ownerDocument;
+				$wiki = new \Apps\Wiki\Libs\Document($url);
 				
-				if ($content == '') {
-					throw new \Exception('Cannot format, no content given.');
-				}
-				
-				$html = new \Apps\Wiki\Libs\HTML();
-				$content = $html->format($content, $settings);
-				
-				$fragment = $document->createDocumentFragment();
-				$fragment->appendXML($content);
-				$element->appendChild($fragment);
+				$wiki->appendFormattedTo($element);
 				$element->setAttribute('success', 'yes');
 			}
 			

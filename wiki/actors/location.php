@@ -13,39 +13,31 @@
 			$parameters = $session->parameters();
 			$document = $element->ownerDocument;
 			
-			$url = $parameters->{'document-url'}->get();
-			$files = (
-				$url != ''
-					? explode('/', '/' . $url)
-					: array('')
-			);
-			$path = '';
-			
-			foreach ($files as $file) {
-				$path = ltrim($path . '/' . $file, '/');
-				$name = ucfirst(str_replace('-', ' ', $file));
-				$content = file_get_contents('document://' . $path);
+			try {
+				$url = $parameters->{'document-url'}->get();
+				$files = (
+					$url != ''
+						? explode('/', '/' . $url)
+						: array('')
+				);
+				$url = '';
 				
-				try {
-					$html = new \Apps\Wiki\Libs\HTML();
-					$xml = new \Libs\DOM\Document();
-					$xml->loadXML(sprintf(
-						'<data>%s</data>',
-						$html->format($content, $settings)
-					));
-					$value = $xml->{'string(/data/h1[1])'};
+				foreach ($files as $file) {
+					$url = ltrim($url . '/' . $file, '/');
+					$wiki = new \Apps\Wiki\Libs\Document($url);
 					
-					if ($value) $name = $value;
+					$item = $document->createElement('item');
+					$item->setAttribute('path', $wiki->getURL());
+					$item->setAttribute('name', $wiki->getName());
+					$element->appendChild($item);
 				}
 				
-				catch (\Exception $e) {
-					// De-serialised name is fine.
-				}
-				
-				$item = $document->createElement('item');
-				$item->setAttribute('path', $path);
-				$item->setAttribute('name', $name);
-				$element->appendChild($item);
+				$element->setAttribute('success', 'yes');
+			}
+			
+			catch (\Exception $e) {
+				$element->setAttribute('success', 'no');
+				$element->setAttribute('message', $e->getMessage());
 			}
 		}
 	}

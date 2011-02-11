@@ -13,7 +13,7 @@
 			$this->url = $url;
 			
 			if (is_file('document://' . $url)) {
-				$this->loadUnformatted(file_get_contents('document://' . $url));
+				$this->edit(file_get_contents('document://' . $url));
 			}
 		}
 		
@@ -36,10 +36,21 @@
 		}
 		
 		public function appendFormattedTo(\Libs\DOM\Element $parent) {
+			foreach ($this->formatted->{'/data/node()'} as $node) {
+				$node = $parent->ownerDocument->importNode($node, true);
+				$parent->appendChild($node);
+			}
 			
+			return true;
 		}
 		
-		public function loadUnformatted($unformatted) {
+		public function appendUnformattedTo(\Libs\DOM\Element $parent) {
+			$parent->nodeValue = htmlentities($this->unformatted);
+			
+			return true;
+		}
+		
+		public function edit($unformatted) {
 			$settings = \Libs\Session::current()->app()->settings();
 			$html = new \Apps\Wiki\Libs\HTML();
 			$xml = new \Libs\DOM\Document();

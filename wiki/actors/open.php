@@ -11,11 +11,10 @@
 			$constants = $session->constants();
 			$parameters = $session->parameters();
 			
-			$url = $parameters->{'document-url'};
-			
 			try {
-				$content = file_get_contents('document://' . $url);
-				$element->nodeValue = htmlentities($content);
+				$url = $parameters->{'document-url'};
+				$wiki = new \Apps\Wiki\Libs\Document($url);
+				$wiki->appendUnformattedTo($element);
 				$element->setAttribute('success', 'yes');
 			}
 			
