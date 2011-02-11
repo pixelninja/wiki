@@ -363,7 +363,7 @@
 		
 		#view nav.breadcrumb ol {
 			color: #999999;
-			font-size: 11px;
+			font-size: 12px;
 			line-height: 14px;
 			margin: 0;
 			overflow: hidden;
@@ -371,7 +371,6 @@
 		#view nav.breadcrumb li {
 			clear: none;
 			float: left;
-			text-transform: uppercase;
 		}
 		#view nav.breadcrumb li:before {
 			content: '\2022';
