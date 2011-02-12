@@ -26,7 +26,7 @@
 				
 				foreach ($files as $file) {
 					$url = ltrim($url . '/' . $file, '/');
-					$wiki = new Document($url);
+					$wiki = Document::open('document://' . $url);
 					
 					$item = $document->createElement('item');
 					$item->setAttribute('path', $wiki->getURL());

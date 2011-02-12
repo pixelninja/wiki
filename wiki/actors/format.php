@@ -13,30 +13,33 @@
 			$settings = $session->app()->settings();
 			$parameters = $session->parameters();
 			
+			$edit_on_redirect = false;
+			$dirs = 'directory://';
+			$docs = 'document://';
+			
 			// Find document url:
 			$url = strtolower($parameters->{'current-path'});
 			$url = preg_replace('%[^/\w]+%', '-', $url);
 			$url = preg_replace('%(^[-]+|[-]+$|[-]+(?=/)|(?<=/)[-]+)%', null, $url);
-			$edit_on_redirect = false;
 			
 			// Create directory:
-			if (!is_dir('directory://' . $url)) {
+			if (!is_dir($dirs . $url)) {
 				$dir = '';
 				
 				foreach (explode('/', $url) as $current) {
 					$dir = ltrim($dir . '/' . $current, '/');
 					
-					if (!is_dir('directory://' . $dir)) mkdir($dir);
+					if (!is_dir($dirs . $dir)) mkdir($dir);
 				}
 			}
 			
 			// Create a new empty document?
-			if (!is_file('document://' . $url)) {
+			if (!is_file($docs . $url)) {
 				$edit_on_redirect = true;
 				$title = $parameters->{'current-path'};
 				$title = trim(preg_replace('%^.*/%', null, $title));
 				
-				file_put_contents('document://' . $url, '<h1>' . $title . '</h1>');
+				file_put_contents($docs . $url, '<h1>' . $title . '</h1>');
 			}
 			
 			// Redirect to serialised document:
@@ -48,8 +51,7 @@
 			
 			try {
 				$parameters->{'document-url'} = $url;
-				$wiki = new Document($url);
-				
+				$wiki = Document::open($docs . $url);
 				$wiki->appendFormattedTo($element);
 				$element->setAttribute('success', 'yes');
 			}

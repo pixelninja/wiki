@@ -2,29 +2,58 @@
 /*---------------------------------------------------------------------------*/
 	
 	namespace Apps\Wiki\Libs;
+	use \Libs\DOM as DOM;
+	use \Libs\Session as Session;
+	use \Apps\Wiki\Libs\HTML as HTML;
 	
 	class Document {
+		static protected $catalog;
+		
+		static public function open($url) {
+			if (!is_file($url)) {
+				throw new Exception(sprintf(
+					"Unable to open document '%s'.", $url
+				));
+			}
+			
+			list($handler, $url) = explode('://', $url, 2);
+			
+			if (isset(self::$catalog[$url])) {
+				$document = self::$catalog[$url];
+			}
+			
+			else {
+				$handler .= '://';
+				$document = new Document($handler, $url);
+				$document->setContent(
+					file_get_contents($handler . $url)
+				);
+				
+				$catalog[$url] = $document;
+			}
+			
+			return $document;
+		}
+		
 		protected $formatted;
 		protected $unformatted;
+		protected $handler;
 		protected $url;
 		protected $name;
 		
-		public function __construct($url) {
+		public function __construct($handler, $url) {
+			$this->handler = $handler;
 			$this->url = $url;
-			
-			if (is_file('document://' . $url)) {
-				$this->edit(file_get_contents('document://' . $url));
-			}
 		}
 		
 		public function appendExcerptTo(\Libs\DOM\Element $parent) {
-			$excerpt = $this->getExcerpt();
+			$excerpt = $this->formatted->{'/data/p[1]'}->current();
 			
-			if ($excerpt === false) return false;
+			if (!$excerpt) return false;
 			
 			try {
 				$fragment = $parent->ownerDocument->createDocumentFragment();
-				$fragment->appendXML($excerpt);
+				$fragment->appendXML($excerpt->saveXML());
 				$parent->appendChild($fragment);
 			}
 			
@@ -50,45 +79,24 @@
 			return true;
 		}
 		
-		public function edit($unformatted) {
-			$settings = \Libs\Session::current()->app()->settings();
-			$html = new \Apps\Wiki\Libs\HTML();
-			$xml = new \Libs\DOM\Document();
-			$xml->loadXML(
-				'<data>' . $html->format($unformatted, $settings) . '</data>'
-			);
-			
-			$this->name = $xml->{'string(/data/h1[1])'};
-			$this->formatted = $xml;
-			$this->unformatted = $unformatted;
-		}
-		
 		public function getChildren() {
 			$children = array();
 			
 			foreach (scandir('directory://' . $this->url) as $file) {
 				if (preg_match('%^[.]%', $file) || !is_file('document://' . $this->url . '/' . $file)) continue;
 				
-				$children[] = new Document($this->url . '/' . $file);
+				$children[] = Document::open($this->handler . $this->url . '/' . $file);
 			}
 			
 			return $children;
 		}
 		
-		public function getExcerpt() {
-			$node = $this->formatted->{'/data/p[1]'}->current();
-			
-			if (!$node) return false;
-			
-			return $node->saveXML();
-		}
-		
 		public function getParent() {
-			return new Document(dirname($this->url));
+			return Document::open($this->handler . dirname($this->url));
 		}
 		
 		public function getName() {
-			return $this->name;
+			return $this->formatted->{'string(/data/h1[1])'};
 		}
 		
 		public function getURL() {
@@ -97,6 +105,18 @@
 		
 		public function hasParent() {
 			return strlen($this->url) !== 0;
+		}
+		
+		public function setContent($content) {
+			$settings = Session::current()->app()->settings();
+			$html = new HTML();
+			$xml = new DOM\Document();
+			$xml->loadXML(
+				'<data>' . $html->format($content, $settings) . '</data>'
+			);
+			
+			$this->formatted = $xml;
+			$this->unformatted = $content;
 		}
 	}
 	

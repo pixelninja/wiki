@@ -17,7 +17,7 @@
 			
 			try {
 				$url = $parameters->{'document-url'}->get();
-				$wiki = new Document($url);
+				$wiki = Document::open('document://' . $url);
 				
 				foreach ($wiki->getChildren() as $child) {
 					$item = $document->createElement('item');
