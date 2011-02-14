@@ -15,7 +15,7 @@
 			
 			try {
 				$url = $parameters->{'document-url'};
-				$wiki = new Document($url);
+				$wiki = Document::open('document://' . $url);
 				$wiki->appendUnformattedTo($element);
 				$element->setAttribute('success', 'yes');
 			}
