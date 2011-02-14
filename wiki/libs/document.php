@@ -85,7 +85,7 @@
 			foreach (scandir('directory://' . $this->url) as $file) {
 				if (preg_match('%^[.]%', $file) || !is_file('document://' . $this->url . '/' . $file)) continue;
 				
-				$children[] = Document::open($this->handler . $this->url . '/' . $file);
+				$children[] = Document::open($this->handler . ltrim($this->url . '/' . $file, '/'));
 			}
 			
 			return $children;
