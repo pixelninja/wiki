@@ -29,7 +29,7 @@
 					file_get_contents($handler . $url)
 				);
 				
-				$catalog[$url] = $document;
+				self::$catalog[$url] = $document;
 			}
 			
 			return $document;

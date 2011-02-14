@@ -13,20 +13,17 @@
 			$settings = $session->app()->settings();
 			$parameters = $session->parameters();
 			
-			$content = $parameters->{'document-content'};
-			$element->setAttribute('success', 'no');
-			
 			try {
+				$content = $parameters->{'document-content'};
+				$url = $parameters->{'document-url'};
+				
 				if ($content == '') {
 					throw new \Exception('Cannot preview, no content given.');
 				}
 				
-				$html = new \Apps\Wiki\Libs\HTML();
-				$content = $html->format($content, $settings);
-				
-				$fragment = $element->ownerDocument->createDocumentFragment();
-				$fragment->appendXML($content);
-				$element->appendChild($fragment);
+				$wiki = Document::open('document://' . $url);
+				$wiki->setContent($content);
+				$wiki->appendFormattedTo($element);
 				$element->setAttribute('success', 'yes');
 			}
 			

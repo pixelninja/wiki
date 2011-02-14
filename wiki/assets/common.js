@@ -168,6 +168,8 @@ var actions = {
 				},
 				dataType:	'html',
 				success:	function(data) {
+					$('title')
+						.text($(data).attr('title'));
 					view.widget
 						.html($(data).html());
 					

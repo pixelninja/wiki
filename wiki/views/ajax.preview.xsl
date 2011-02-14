@@ -4,6 +4,10 @@
 	
 	<xsl:template match="/view">
 		<preview>
+			<xsl:attribute name="title">
+				<xsl:apply-templates select="." mode="title" />
+			</xsl:attribute>
+			
 			<xsl:apply-templates select="actors/preview/@*" mode="output" />
 			<xsl:apply-templates select="actors/preview/*" mode="output" />
 		</preview>
