@@ -30,18 +30,19 @@ var edit = {
 	loaded: false,
 	
 	open: function() {
-		edit.widget.show();
+		edit.widget
+			.removeClass('loading')
+			.show();
 		edit.nav.hide();
 		save.nav.show();
 	},
 	
 	close: function() {
 		if (edit.widget) {
-			edit.widget.remove();
+			edit.widget.hide();
 		}
 		
 		edit.nav.show();
-		edit.codemirror = null;
 	}
 };
 
@@ -90,60 +91,67 @@ var actions = {
 		view.widget
 			.addClass('loading');
 		
-		$.ajax({
-			url:		base_url + '/ajax/open',
-			type:		'POST',
-			data:		{
-				'document-url':		$('#document').attr('data-document-url')
-			},
-			dataType:	'html',
-			success:	function(data) {
-				edit.codemirror = new CodeMirror(
-					function(widget) {
-						edit.widget = $(widget)
-							.hide()
-							.attr('id', 'edit')
-							.appendTo('#document');
-					},
-					{
-						content: $(data).text(),
-						height: 'dynamic',
-						minHeight: view.widget.innerHeight(),
-						disableSpellcheck: false,
-						
-						// Switch to editor:
-						onLoad: function() {
-							view.close();
-							edit.open();
+		if (!edit.widget) {
+			$.ajax({
+				url:		base_url + '/ajax/open',
+				type:		'POST',
+				data:		{
+					'document-url':		$('#document').attr('data-document-url')
+				},
+				dataType:	'html',
+				success:	function(data) {
+					edit.codemirror = new CodeMirror(
+						function(widget) {
+							edit.widget = $(widget)
+								.hide()
+								.attr('id', 'edit')
+								.appendTo('#document');
 						},
-						
-						// Pretty:
-						autoMatchParens: true,
-						continuousScanning: true,
-						
-						// Indenting:
-						indentUnit: 4,
-						reindentOnLoad: true,
-						tabMode: 'shift',
-						
-						// Load resources:
-						parserfile: [
-							"parsexml.js",
-							"parsecss.js",
-							"tokenizejavascript.js",
-							"parsejavascript.js",
-							"parsehtmlmixed.js"
-						],
-						stylesheet: [
-							asset_url + "/codemirror/css/xmlcolors.css",
-							asset_url + "/codemirror/css/jscolors.css",
-							asset_url + "/codemirror/css/csscolors.css"
-						],
-						path: asset_url + "/codemirror/js/"
-					}
-				);
-			}
-		});
+						{
+							content: $(data).text(),
+							height: 'dynamic',
+							minHeight: view.widget.innerHeight(),
+							disableSpellcheck: false,
+							
+							// Switch to editor:
+							onLoad: function() {
+								view.close();
+								edit.open();
+							},
+							
+							// Pretty:
+							autoMatchParens: true,
+							continuousScanning: true,
+							
+							// Indenting:
+							indentUnit: 4,
+							reindentOnLoad: true,
+							tabMode: 'shift',
+							
+							// Load resources:
+							parserfile: [
+								"parsexml.js",
+								"parsecss.js",
+								"tokenizejavascript.js",
+								"parsejavascript.js",
+								"parsehtmlmixed.js"
+							],
+							stylesheet: [
+								asset_url + "/codemirror/css/xmlcolors.css",
+								asset_url + "/codemirror/css/jscolors.css",
+								asset_url + "/codemirror/css/csscolors.css"
+							],
+							path: asset_url + "/codemirror/js/"
+						}
+					);
+				}
+			});
+		}
+		
+		else {
+			view.close();
+			edit.open();
+		}
 	},
 	
 	preview: function() {
