@@ -2,6 +2,7 @@
 /*---------------------------------------------------------------------------*/
 	
 	namespace Apps\Wiki\Libs;
+	use \Exception as Exception;
 	use \Libs\DOM as DOM;
 	use \Libs\Session as Session;
 	use \Apps\Wiki\Libs\HTML as HTML;
@@ -31,6 +32,20 @@
 				
 				self::$catalog[$url] = $document;
 			}
+			
+			return $document;
+		}
+		
+		static public function create($url, $title) {
+			list($handler, $url) = explode('://', $url, 2);
+			
+			$handler .= '://';
+			$document = new Document($handler, $url);
+			$document->setUnformatted(sprintf(
+				"<h1>%s</h1>\n\n<children />", $title
+			));
+			
+			self::$catalog[$url] = $document;
 			
 			return $document;
 		}

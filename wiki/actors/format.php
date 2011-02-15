@@ -13,36 +13,36 @@
 			$edit_on_redirect = false;
 			$dirs = 'directory://';
 			$docs = 'document://';
+			$serialise = function($url) {
+				$url = preg_replace('%[^/\w]+%', '-', strtolower($url));
+				$url = preg_replace('%(^[-]+|[-]+$|[-]+(?=/)|(?<=/)[-]+)%', null, $url);
+				
+				return $url;
+			};
 			
 			// Find document url:
-			$url = strtolower($parameters->{'current-path'});
-			$url = preg_replace('%[^/\w]+%', '-', $url);
-			$url = preg_replace('%(^[-]+|[-]+$|[-]+(?=/)|(?<=/)[-]+)%', null, $url);
+			$url = $serialise($parameters->{'current-path'});
 			
-			// Create directory:
-			if (!is_dir($dirs . $url)) {
-				$dir = '';
-				
-				foreach (explode('/', $url) as $current) {
-					$dir = ltrim($dir . '/' . $current, '/');
-					
-					if (!is_dir($dirs . $dir)) mkdir($dir);
-				}
-			}
-			
-			// Create a new empty document?
-			if (!is_file($docs . $url)) {
+			// Document doesn't exists, create it:
+			if (!is_file($dirs . $url)) {
 				$edit_on_redirect = true;
-				$title = $parameters->{'current-path'};
-				$title = trim(preg_replace('%^.*/%', null, $title));
+				$path = '';
 				
-				file_put_contents($docs . $url, '<h1>' . $title . '</h1>');
+				foreach (explode('/', $parameters->{'current-path'}) as $title) {
+					$path = ltrim($path . '/' . $title, '/');
+					
+					if (is_file($docs . $path)) continue;
+					
+					$url = $serialise($path);
+					$wiki = Document::create($docs . $url, $title);
+					$wiki->save();
+				}
 			}
 			
 			// Redirect to serialised document:
 			if ($url != (string)$parameters->{'current-path'}) {
 				header('Location: ' . Session::constants()->{'base-url'} . '/' . $url . (
-					$created ? '#edit' : null
+					$edit_on_redirect ? '#edit' : null
 				)); exit;
 			}
 			

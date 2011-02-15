@@ -68,7 +68,9 @@
 		public function stream_open($path, $mode, $options, &$opened_path) {
 			$file = $this->find($path);
 			
-			if (!is_file($file)) return false;
+			if (!is_dir(dirname($file))) {
+				mkdir(dirname($file));
+			}
 			
 			$this->file = $file;
 			$this->handle = fopen($file, $mode);

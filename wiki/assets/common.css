@@ -191,16 +191,19 @@
 		#view h2 {
 			font-size: 22px;
 			line-height: 24px;
-			margin: 30px 0 15px 0;
+			margin: 40px 0 15px 0;
 			page-break-before: always;
 			position: relative;
 		}
 		#view h2:first-child {
 			page-break-before: auto;
 		}
+		#view h1 + h2 {
+			margin-top: 20px;
+		}
 		#view h3 {
 			font-size: 16px;
-			margin: 30px 0 10px 0;
+			margin: 30px 0 15px 0;
 		}
 		#view h2 + h3 {
 			margin-top: 15px;
