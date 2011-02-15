@@ -415,6 +415,9 @@
 			padding: 10px;
 			white-space: pre-wrap;
 		}
+		#view pre .comment {
+			color: hsl(0, 0%, 50%);
+		}
 	
 	/* @group Paragraphs */
 		
