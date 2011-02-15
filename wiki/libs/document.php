@@ -62,18 +62,38 @@
 		}
 		
 		public function appendExcerptTo(\Libs\DOM\Element $parent) {
+			$fragment = $parent->ownerDocument->createDocumentFragment();
+			$nodes = $this->formatted->{'/data/excerpt[p] | /data/p[1]'};
 			$parent->setAttribute('more', 'no');
-			$excerpt = $this->formatted->{'/data/p[1]'}->current();
+			$excerpt = null;
 			
-			if (!$excerpt) return false;
+			foreach ($nodes as $node) {
+				$excerpt = $node;
+				
+				if ($node->nodeName != 'p') break;
+			}
 			
-			if ($excerpt->{'count(following-sibling::*)'}) {
+			if (!$excerpt instanceof DOM\Element) return false;
+			
+			// Contains additional content?
+			if (
+				$excerpt->{'count(following-sibling::*)'}
+				|| $excerpt->{'count(preceding-sibling::*[name() != "h1"])'}
+			) {
 				$parent->setAttribute('more', 'yes');
 			}
 			
-			try {
-				$fragment = $parent->ownerDocument->createDocumentFragment();
+			if ($excerpt->nodeName == 'p') {
 				$fragment->appendXML($excerpt->saveXML());
+			}
+			
+			else foreach ($excerpt->childNodes as $node) {
+				if (!$node instanceof DOM\Element) continue;
+				
+				$fragment->appendXML($node->saveXML());
+			}
+			
+			try {
 				$parent->appendChild($fragment);
 			}
 			

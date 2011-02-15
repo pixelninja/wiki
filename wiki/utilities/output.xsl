@@ -46,6 +46,11 @@
 		<xsl:apply-templates select=".." mode="toc" />
 	</xsl:template>
 	
+	<!-- Excerpt -->
+	<xsl:template match="excerpt" mode="output">
+		<xsl:apply-templates select="* | text()" mode="output" />
+	</xsl:template>
+	
 	<!-- Inline Parents -->
 	<xsl:template match="h1|h2|h3|h4|h5|h6" mode="output" priority="1">
 		<xsl:variable name="size">

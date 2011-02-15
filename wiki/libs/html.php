@@ -288,7 +288,7 @@
 			$tidy = new \Tidy();
 			$tidy->parseString(
 				$source, array(
-					'new-blocklevel-tags'			=> 'children, content',
+					'new-blocklevel-tags'			=> 'children, content, excerpt',
 					'drop-font-tags'				=> true,
 					'drop-proprietary-attributes'	=> true,
 					'hide-comments'					=> true,
@@ -319,11 +319,11 @@
 				'th', 'form', 'fieldset', 'label', 'input', 'button',
 				'select', 'datalist', 'optgroup', 'option', 'textarea',
 				'keygen', 'output', 'details', 'datagrid', 'command',
-				'bb', 'menu', 'legend', 'div', 'children'
+				'bb', 'menu', 'legend', 'div', 'children', 'content', 'excerpt'
 			);
 			
 			// Find nodes that may contain paragraphs:
-			foreach ($xpath->query('//body | //blockquote | //div | //dd') as $node) {
+			foreach ($xpath->query('//body | //blockquote | //div | //dd | //excerpt') as $node) {
 				array_unshift($nodes, $node);
 			}
 			
