@@ -9,13 +9,9 @@
 		public function execute(\Libs\DOM\Element $element) {
 			parent::execute($element);
 			
-			$session = Session::current();
-			$settings = $session->app()->settings();
-			$constants = $session->constants();
-			$parameters = $session->parameters();
-			$document = $element->ownerDocument;
-			
 			try {
+				$parameters = Session::parameters();
+				$document = $element->ownerDocument;
 				$url = $parameters->{'document-url'}->get();
 				$files = (
 					$url != ''

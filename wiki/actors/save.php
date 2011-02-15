@@ -9,15 +9,12 @@
 		public function execute(\Libs\DOM\Element $element) {
 			parent::execute($element);
 			
-			$session = Session::current();
-			$settings = $session->app()->settings();
-			$constants = $session->constants();
-			$parameters = $session->parameters();
-			
-			$content = $parameters->{'document-content'};
-			$url = $parameters->{'document-url'}->get();
-			
 			try {
+				$parameters = Session::parameters();
+				$settings = Session::app()->settings();
+				$content = $parameters->{'document-content'}->get();
+				$url = $parameters->{'document-url'}->get();
+				
 				if ($settings->{'read-only'} === false) {
 					throw new \Exception('Cannot save while in read-only mode.');
 				}
@@ -26,7 +23,9 @@
 					throw new \Exception('Cannot save, no content given.');
 				}
 				
-				file_put_contents('document://' . $url, $content);
+				$wiki = Document::open('document://' . $url);
+				$wiki->setUnformatted($content);
+				$wiki->save();
 				
 				$element->setAttribute('success', 'yes');
 			}

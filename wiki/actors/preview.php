@@ -9,20 +9,17 @@
 		public function execute(\Libs\DOM\Element $element) {
 			parent::execute($element);
 			
-			$session = Session::current();
-			$settings = $session->app()->settings();
-			$parameters = $session->parameters();
-			
 			try {
-				$content = $parameters->{'document-content'};
-				$url = $parameters->{'document-url'};
+				$parameters = Session::parameters();
+				$content = $parameters->{'document-content'}->get();
+				$url = $parameters->{'document-url'}->get();
 				
 				if ($content == '') {
 					throw new \Exception('Cannot preview, no content given.');
 				}
 				
 				$wiki = Document::open('document://' . $url);
-				$wiki->setContent($content);
+				$wiki->setUnformatted($content);
 				$wiki->appendFormattedTo($element);
 				$element->setAttribute('success', 'yes');
 			}

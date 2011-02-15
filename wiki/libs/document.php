@@ -25,7 +25,7 @@
 			else {
 				$handler .= '://';
 				$document = new Document($handler, $url);
-				$document->setContent(
+				$document->setUnformatted(
 					file_get_contents($handler . $url)
 				);
 				
@@ -107,7 +107,11 @@
 			return strlen($this->url) !== 0;
 		}
 		
-		public function setContent($content) {
+		public function save() {
+			file_put_contents($this->handler . $this->url, $this->unformatted);
+		}
+		
+		public function setUnformatted($content) {
 			$settings = Session::current()->app()->settings();
 			$html = new HTML();
 			$xml = new DOM\Document();

@@ -9,12 +9,8 @@
 		public function execute(\Libs\DOM\Element $element) {
 			parent::execute($element);
 			
-			$session = Session::current();
-			$constants = $session->constants();
-			$parameters = $session->parameters();
-			
 			try {
-				$url = $parameters->{'document-url'};
+				$url = Session::parameters()->{'document-url'}->get();
 				$wiki = Document::open('document://' . $url);
 				$wiki->appendUnformattedTo($element);
 				$element->setAttribute('success', 'yes');

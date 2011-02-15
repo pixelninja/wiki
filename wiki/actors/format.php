@@ -9,10 +9,7 @@
 		public function execute(\Libs\DOM\Element $element) {
 			parent::execute($element);
 			
-			$session = Session::current();
-			$settings = $session->app()->settings();
-			$parameters = $session->parameters();
-			
+			$parameters = Session::parameters();
 			$edit_on_redirect = false;
 			$dirs = 'directory://';
 			$docs = 'document://';
@@ -44,7 +41,7 @@
 			
 			// Redirect to serialised document:
 			if ($url != (string)$parameters->{'current-path'}) {
-				header('Location: ' . $session->constants()->{'base-url'} . '/' . $url . (
+				header('Location: ' . Session::constants()->{'base-url'} . '/' . $url . (
 					$created ? '#edit' : null
 				)); exit;
 			}
