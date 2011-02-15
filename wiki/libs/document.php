@@ -62,9 +62,14 @@
 		}
 		
 		public function appendExcerptTo(\Libs\DOM\Element $parent) {
+			$parent->setAttribute('more', 'no');
 			$excerpt = $this->formatted->{'/data/p[1]'}->current();
 			
 			if (!$excerpt) return false;
+			
+			if ($excerpt->{'count(following-sibling::*)'}) {
+				$parent->setAttribute('more', 'yes');
+			}
 			
 			try {
 				$fragment = $parent->ownerDocument->createDocumentFragment();
