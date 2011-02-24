@@ -27,6 +27,9 @@
 						<li class="home"><a href="{$constants/base-url}/">Home</a></li>
 					</xsl:if>
 					
+					<li class="tech"><a href="{$constants/base-url}/technical-documentation">Technical Documentation</a></li>
+					<li class="user"><a href="{$constants/base-url}/user-documentation">User Documentation</a></li>
+										
 					<!--<li class="history"><a href="#history">History</a></li>-->
 					<li class="view"><a href="#view">View</a></li>
 					

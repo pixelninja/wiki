@@ -239,6 +239,10 @@
 			display: block;
 			margin: 0 auto;
 			padding: 10px 0;
+
+			background: none repeat scroll 0 0 rgba(0, 0, 0, 0.03);
+			-moz-border-radius: 10px 10px 10px 10px;
+			padding: 25px 50px;
 		}
 		
 	/* @end */
@@ -402,6 +406,19 @@
 			line-height: 1;
 			vertical-align: baseline;
 		}
+		#view p code, #view li code, #view dl code, #view table code {
+			color: #444;
+			border: 1px solid #dedede;
+			padding: 0 0.2em;
+			background-color: #f8f8ff;
+		}
+		
+		#view nav code{
+			background: none;
+			border: 0;
+			padding: 0;
+			color: inherit;
+		}
 		#view code * {
 			vertical-align: baseline;
 		}
@@ -438,6 +455,65 @@
 		}
 		
 	/* @end */
+	
+/* @end */
+
+/* @group Guideline title/button */
+	#view p.guide-title{
+		font-weight: bold;	
+		background: rgba(0, 0, 0, 0.09);
+		padding: 10px;
+	}
+	#view p.guide-title.first{
+		border-radius: 15px 15px 0 0;
+		-moz-border-radius: 15px 15px 0 0;
+		-o-border-radius: 15px 15px 0 0;
+		-webkit-border-radius: 15px 15px 0 0;
+	}
+	#view p.guide-title.last{
+		border-radius: 0 0 15px 15px;
+		-moz-border-radius: 0 0 15px 15px;
+		-o-border-radius: 0 0 15px 15px;
+		-webkit-border-radius: 0 0 15px 15px;
+	}
+	#view p.guide-title.even{
+		background: rgba(0, 0, 0, 0.03);
+	}
+
+	#view a.guideline{
+	    display: block;
+/*	    margin: 2px 0 25px 5px;*/
+	    margin: 2px 0 0 5px;
+	    padding: 2px 0;
+	    text-decoration: none;
+	    text-align: center;
+	    width: 130px;
+	    color: #fff;
+	    font-size: 12px;
+	    
+		background-color: hsl(78, 0%, 50%);
+		background-image: -moz-linear-gradient(
+			top, hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, 0.2)
+		);
+		background-image: -webkit-gradient(
+			linear, left top, left bottom,
+			color-stop(0, hsla(0, 0%, 0%, 0)),
+			color-stop(1, hsla(0, 0%, 0%, 0.2))
+		);
+		border-radius: 5px;
+		-moz-border-radius: 5px;
+		-o-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		box-shadow: 0 -1px 0 hsla(0, 0%, 100%, 0.2) inset;
+		-moz-box-shadow: 0 -1px 0 hsla(0, 0%, 100%, 0.2) inset;
+		-webkit-box-shadow: 0 -1px 0 hsla(0, 0%, 100%, 0.2) inset;
+		display: block;
+		text-decoration: none;
+	}
+	
+	#view a.guideline:hover{
+		background-color: #666;
+	}
 	
 /* @end */
 
